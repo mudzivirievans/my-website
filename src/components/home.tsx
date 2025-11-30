@@ -127,18 +127,17 @@ function Home() {
   ];
 
   const skills = {
-    "Software Development": ["JavaScript", "TypeScript", "Node.js", "Python", "Flutter", "React / Next.js", "Express", "REST APIs"],
+    "Software Development": ["JavaScript", "TypeScript", "Node.js", "Python", "Flutter", "React / Next.js", "Express", "REST APIs", "Git", "GitHub"],
     "AI & Machine Learning": ["Python", "Data Preprocessing", "NLP (Natural Language Processing)", "Model Training Basics", "LLM Fine-Tuning"],
     "Cloud & DevOps": ["Linux", "Docker", "Nginx", "CI/CD (GitHub Actions)", "AWS", "Vercel", "DigitalOcean"],
-    "IT & Infrastructure": ["Networking", "Troubleshooting", "System Administration", "Cybersecurity Basics", "Database Management"],
-    "Soft Skills": ["Communication", "Adaptability", "Problem Solving", "Leadership"]
+    "IT & Infrastructure": ["Networking", "Troubleshooting", "System Administration", "Cybersecurity", "Database Management", "PostgreSQL / MySQL", "Firebase"]
   };
 
   const experience = [
     {
       role: "Founder & Software Developer",
       company: "VansSoftwareLab",
-      period: "2024 – Present",
+      period: "2022 – Present",
       description: "Building software solutions, websites, AI tools, and cloud-driven systems. Managing requirements, development, deployment, and continuous improvement."
     },
     {
@@ -160,12 +159,18 @@ function Home() {
       {/* Navbar */}
       <nav className="fixed top-0 w-full bg-black/80 backdrop-blur-md z-50 border-b border-blue-600/20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="relative group cursor-pointer">
-            <div className="absolute inset-0 bg-blue-600/20 rounded-lg blur-md group-hover:bg-blue-600/40 transition-all duration-300 animate-pulse"></div>
-            <div className="relative px-4 py-2 bg-black border-2 border-blue-600 rounded-lg text-white font-bold text-lg hover:scale-105 transition-transform">
-              EM
+          <button 
+            onClick={() => scrollToSection('hero')} 
+            className="relative group cursor-pointer"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-cyan-500/30 to-purple-600/30 rounded-xl blur-lg group-hover:blur-xl group-hover:opacity-100 opacity-70 transition-all duration-500 animate-pulse"></div>
+            <div className="relative px-5 py-2.5 bg-gradient-to-br from-gray-900 via-black to-gray-900 border-2 border-transparent rounded-xl hover:scale-110 transition-all duration-300" style={{ backgroundClip: 'padding-box' }}>
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 -z-10" style={{ margin: '-2px' }}></div>
+              <span className="font-black text-2xl tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent" style={{ fontFamily: "'Orbitron', 'Rajdhani', sans-serif", letterSpacing: '-0.05em' }}>
+                E<span className="text-cyan-300">M</span>
+              </span>
             </div>
-          </div>
+          </button>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
@@ -441,6 +446,18 @@ function Home() {
             <div>
               <h3 className="text-2xl font-semibold mb-6 text-white">Contact Information</h3>
               <div className="space-y-4">
+                <a 
+                  href="https://wa.me/26775377360" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition-colors group"
+                >
+                  <Phone className="h-6 w-6 group-hover:scale-110 transition-transform text-cyan-400 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                  <div>
+                    <div className="text-sm text-gray-500">WhatsApp & Calls</div>
+                    <span>+267 75 377 360</span>
+                  </div>
+                </a>
                 <a 
                   href="https://wa.me/27733160196" 
                   target="_blank" 
