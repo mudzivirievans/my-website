@@ -552,7 +552,7 @@ function Home() {
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-gray-800 relative z-10">
         <div className="max-w-6xl mx-auto text-center text-gray-500 text-sm">
-          <p>© 2025 Evans Mudziviri. All rights reserved.</p>
+          <p> © {new Date().getFullYear()} VansSoftwareLab. All rights reserved.</p>
         </div>
       </footer>
     </div>
