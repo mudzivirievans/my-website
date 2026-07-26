@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   BrainCircuit,
   BriefcaseBusiness,
-  CheckCircle2,
   CloudCog,
   Code2,
   Database,
@@ -30,9 +29,10 @@ type Project = {
   name: string;
   category: string;
   description: string;
+  role: string;
+  delivered: string;
   url: string;
   shortUrl: string;
-  services: string[];
   number: string;
   visualClass: string;
   accentClass: string;
@@ -42,6 +42,7 @@ type Product = {
   name: string;
   status: string;
   description: string;
+  decision: string;
   platform: string;
   icon: LucideIcon;
 };
@@ -54,9 +55,10 @@ type Capability = {
 };
 
 const navigation = [
+  { label: 'About', href: '#about' },
   { label: 'Work', href: '#work' },
   { label: 'Products', href: '#products' },
-  { label: 'Capabilities', href: '#capabilities' },
+  { label: 'Approach', href: '#capabilities' },
   { label: 'Experience', href: '#experience' },
 ];
 
@@ -65,10 +67,11 @@ const clientProjects: Project[] = [
     name: 'JohnBrooks Engineering',
     category: 'Engineering & Industrial',
     description:
-      'A professional corporate website that presents JohnBrooks’ engineering services, sector expertise and project capabilities with a clear path for enquiries.',
+      'A professional corporate website that presents engineering services, sector expertise and project capabilities with a clear path for enquiries.',
+    role: 'UX direction, web design and end-to-end development',
+    delivered: 'Responsive website, SEO foundation, deployment, hosting and company email setup',
     url: 'https://johnbrooks.co.zw',
     shortUrl: 'johnbrooks.co.zw',
-    services: ['UX direction', 'Responsive development', 'SEO & deployment'],
     number: '01',
     visualClass: 'from-[#d9ff58] via-[#a7ea45] to-[#17220f]',
     accentClass: 'bg-[#d9ff58] text-[#10140d]',
@@ -77,10 +80,11 @@ const clientProjects: Project[] = [
     name: 'Manase Utilities',
     category: 'Utilities & Infrastructure',
     description:
-      'A structured business website built to communicate infrastructure services, company credibility and contact information across desktop and mobile devices.',
+      'A structured company website created to communicate infrastructure services, business credibility and contact information across desktop and mobile devices.',
+    role: 'Information architecture, frontend development and migration',
+    delivered: 'Responsive website, domain migration, SSL, production deployment and contact infrastructure',
     url: 'https://manaseutilities.co.zw',
     shortUrl: 'manaseutilities.co.zw',
-    services: ['Information architecture', 'Web development', 'Domain migration'],
     number: '02',
     visualClass: 'from-[#f0c55e] via-[#d88a3d] to-[#2a150c]',
     accentClass: 'bg-[#f0c55e] text-[#18110a]',
@@ -90,9 +94,10 @@ const clientProjects: Project[] = [
     category: 'Hospitality & Direct Booking',
     description:
       'A hospitality website designed around property presentation, guest confidence and direct booking enquiries for a self-catering accommodation business.',
+    role: 'Hospitality UX, development and booking journey design',
+    delivered: 'Property presentation, enquiry pathways, maps, SEO, deployment and business email setup',
     url: 'https://sandgrouseresort.co.zw',
     shortUrl: 'sandgrouseresort.co.zw',
-    services: ['Hospitality UX', 'Booking journey', 'Maps & enquiries'],
     number: '03',
     visualClass: 'from-[#f5d8bd] via-[#d59a78] to-[#3f221d]',
     accentClass: 'bg-[#f5d8bd] text-[#2d1915]',
@@ -102,9 +107,10 @@ const clientProjects: Project[] = [
     category: 'Engineering & Consulting',
     description:
       'A modern engineering company website that organises technical services, business information and contact channels into a credible digital presence.',
+    role: 'Visual direction, frontend engineering and launch',
+    delivered: 'Responsive website, service structure, deployment, hosting and company email setup',
     url: 'https://onicorpengineers.co.zw',
     shortUrl: 'onicorpengineers.co.zw',
-    services: ['Visual system', 'Frontend engineering', 'Hosting & email setup'],
     number: '04',
     visualClass: 'from-[#8ddcff] via-[#2d79af] to-[#111a2d]',
     accentClass: 'bg-[#8ddcff] text-[#0e1822]',
@@ -117,6 +123,8 @@ const products: Product[] = [
     status: 'Pre-launch',
     description:
       'A cross-platform property marketplace and rental management product focused on verified listings, trust, communication and end-to-end tenancy workflows.',
+    decision:
+      'I am building TruDwell around one central problem: creating more trust between tenants and property owners before money or commitments change hands.',
     platform: 'Android · iOS · Web platform',
     icon: Smartphone,
   },
@@ -125,6 +133,8 @@ const products: Product[] = [
     status: 'Final development',
     description:
       'A booking and property operations system for hotels, BnBs and short-stay operators, covering availability, reservations and administrative workflows.',
+    decision:
+      'I designed it to connect the guest booking experience with the operational work that happens behind every reservation.',
     platform: 'Guest booking · Operations dashboard',
     icon: MonitorSmartphone,
   },
@@ -133,8 +143,30 @@ const products: Product[] = [
     status: 'Market-ready build',
     description:
       'An offline-first point-of-sale and retail operations system designed for dependable checkout, stock control, reporting and multi-branch growth.',
+    decision:
+      'Offline reliability is central to the system because a business should not stop selling whenever connectivity becomes unreliable.',
     platform: 'Android POS · Web management',
     icon: Layers3,
+  },
+  {
+    name: 'The E Agent',
+    status: 'Working personal system',
+    description:
+      'A personal AI desktop assistant that helps me organise and operate my computer through natural instructions and practical automation.',
+    decision:
+      'I built it for my own daily workflow: opening websites and pages, checking storage, cleaning disk space, organising files and carrying out approved computer tasks.',
+    platform: 'Personal AI · Windows automation',
+    icon: BrainCircuit,
+  },
+  {
+    name: 'Vans Intelligence',
+    status: 'Active development',
+    description:
+      'A business operating system for managing clients, commercial documents and the administrative work behind software projects.',
+    decision:
+      'I am building it to create quotations and invoices, send documents for online signature, maintain customer records and keep business activity organised in one place.',
+    platform: 'CRM · Documents · E-signatures · Operations',
+    icon: BriefcaseBusiness,
   },
 ];
 
@@ -142,49 +174,29 @@ const capabilities: Capability[] = [
   {
     title: 'Product & Software Engineering',
     description:
-      'Designing and delivering complete software products from requirements and architecture through implementation, testing and production deployment.',
-    areas: [
-      'Full-stack web applications',
-      'Cross-platform mobile applications',
-      'API and integration architecture',
-      'Real-time and workflow-driven systems',
-    ],
+      'I translate real requirements into complete web, mobile and business software that can be tested, deployed and maintained.',
+    areas: ['Full-stack applications', 'Cross-platform mobile products', 'API and integration architecture'],
     icon: Code2,
   },
   {
     title: 'Cloud & Platform Engineering',
     description:
-      'Building secure, maintainable deployment environments and connecting the infrastructure required to operate modern digital services.',
-    areas: [
-      'Cloud deployment architecture',
-      'Containerised application delivery',
-      'Reliability, monitoring and recovery',
-      'Domain, SSL and business email infrastructure',
-    ],
+      'I connect software to the infrastructure required for secure, dependable operation beyond the development environment.',
+    areas: ['Cloud and container delivery', 'Reliability and recovery', 'Domain, SSL and email infrastructure'],
     icon: CloudCog,
   },
   {
     title: 'Data, AI & Automation',
     description:
-      'Applying data engineering, AI services and automation to reduce manual work and create more responsive business systems.',
-    areas: [
-      'Conversational and language AI',
-      'Business workflow automation',
-      'Relational data modelling',
-      'Operational reporting and analytics',
-    ],
+      'I apply data structures, AI services and workflow automation where they solve a practical operational problem.',
+    areas: ['Conversational and language AI', 'Business process automation', 'Operational data and reporting'],
     icon: BrainCircuit,
   },
   {
     title: 'Cybersecurity & IT Systems',
     description:
-      'Supporting software and infrastructure with practical security, access control, systems administration and structured technical troubleshooting.',
-    areas: [
-      'Authentication and access control',
-      'Secure deployment practices',
-      'Networking and systems administration',
-      'Technical support and incident diagnosis',
-    ],
+      'I support software and infrastructure with practical security, access control, systems administration and structured diagnosis.',
+    areas: ['Authentication and access control', 'Networking and administration', 'Incident diagnosis and support'],
     icon: ShieldCheck,
   },
 ];
@@ -228,6 +240,13 @@ const experience = [
       'Designing, building and deploying websites, mobile applications, business systems and AI-enabled software for organisations and emerging products.',
   },
   {
+    role: 'Head of IT',
+    organisation: 'Hybrid Solutions',
+    period: '2023 — 2024',
+    summary:
+      'Led day-to-day IT operations, technical support, systems administration and technology coordination while helping the organisation maintain dependable digital services.',
+  },
+  {
     role: 'Software Developer',
     organisation: 'Padariro Entertainment Studios',
     period: '2020 — 2022',
@@ -254,15 +273,18 @@ function Home() {
       <div className="portfolio-glow fixed -right-48 -top-40 -z-10 h-[34rem] w-[34rem] rounded-full" />
 
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0b0c0e]/82 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-5 sm:px-8 lg:px-12">
-          <a href="#top" className="group flex items-center gap-3" aria-label="Evans Mudziviri home">
-            <span className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.04] text-sm font-semibold transition group-hover:border-[#c7ff5b]/60 group-hover:text-[#c7ff5b]">
+        <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 sm:px-8 lg:px-12">
+          <a href="#top" className="group flex min-w-0 items-center gap-3" aria-label="Evans Mudziviri home">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.04] text-sm font-semibold transition group-hover:border-[#c7ff5b]/60 group-hover:text-[#c7ff5b]">
               EM
             </span>
-            <span className="hidden text-sm font-medium tracking-wide text-white/80 sm:block">Evans Mudziviri</span>
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-medium tracking-wide text-white/90">Evans Mudziviri</span>
+              <span className="block text-[11px] text-white/40">Software Engineer</span>
+            </span>
           </a>
 
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
             {navigation.map((item) => (
               <a key={item.href} href={item.href} className="text-sm text-white/58 transition hover:text-white">
                 {item.label}
@@ -270,18 +292,16 @@ function Home() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <a
-              href="mailto:evans@vanssoftwarelab.com"
-              className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white transition hover:border-white/35 hover:bg-white/[0.05]"
-            >
-              Start a conversation
-            </a>
-          </div>
+          <a
+            href="mailto:evans@vanssoftwarelab.com"
+            className="hidden rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white transition hover:border-white/35 hover:bg-white/[0.05] lg:block"
+          >
+            Start a conversation
+          </a>
 
           <button
             type="button"
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 lg:hidden"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 lg:hidden"
             onClick={() => setMobileMenuOpen((open) => !open)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
@@ -315,7 +335,7 @@ function Home() {
       </header>
 
       <main id="top">
-        <section className="relative mx-auto flex min-h-screen max-w-[1400px] items-center px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pt-28">
+        <section className="relative mx-auto flex min-h-screen max-w-[1400px] items-center px-5 pb-16 pt-28 sm:px-8 lg:px-12 lg:pt-24">
           <div className="grid w-full items-center gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
             <motion.div
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 26 }}
@@ -331,14 +351,13 @@ function Home() {
                 Cloud & AI systems
               </div>
 
-              <h1 className="max-w-5xl text-balance text-[clamp(3.3rem,8vw,7.8rem)] font-semibold leading-[0.89] tracking-[-0.065em] text-[#f4f2ea]">
-                Engineering digital products for the real world.
+              <h1 className="max-w-5xl text-balance text-[clamp(3.2rem,8vw,7.8rem)] font-semibold leading-[0.89] tracking-[-0.065em] text-[#f4f2ea]">
+                I build digital products that solve real problems.
               </h1>
 
               <p className="mt-8 max-w-2xl text-lg leading-8 text-white/60 sm:text-xl">
-                I’m Evans Mudziviri, a software engineer based in Botswana. I design and build web platforms,
-                mobile applications, cloud systems and intelligent business software—from early requirements to
-                production delivery.
+                I’m Evans Mudziviri, a software engineer based in Botswana. I design and build web platforms, mobile
+                applications, cloud systems and intelligent business software—from early requirements to production delivery.
               </p>
 
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
@@ -346,7 +365,7 @@ function Home() {
                   href="#work"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c7ff5b] px-6 py-3.5 font-semibold text-[#10140c] transition hover:-translate-y-0.5 hover:bg-[#d7ff86]"
                 >
-                  View selected work
+                  View my work
                   <ArrowDown className="h-4 w-4" />
                 </a>
                 <a
@@ -355,7 +374,7 @@ function Home() {
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3.5 font-medium text-white transition hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/[0.04]"
                 >
-                  Discuss a project
+                  Talk to me
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
               </div>
@@ -363,11 +382,11 @@ function Home() {
               <div className="mt-14 grid max-w-2xl grid-cols-3 gap-5 border-t border-white/10 pt-7">
                 <div>
                   <div className="text-2xl font-semibold tracking-tight sm:text-3xl">4</div>
-                  <div className="mt-1 text-xs leading-5 text-white/45 sm:text-sm">Live business websites</div>
+                  <div className="mt-1 text-xs leading-5 text-white/45 sm:text-sm">Live client websites</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-semibold tracking-tight sm:text-3xl">3</div>
-                  <div className="mt-1 text-xs leading-5 text-white/45 sm:text-sm">Products nearing launch</div>
+                  <div className="text-2xl font-semibold tracking-tight sm:text-3xl">5</div>
+                  <div className="mt-1 text-xs leading-5 text-white/45 sm:text-sm">Products and systems</div>
                 </div>
                 <div>
                   <div className="text-2xl font-semibold tracking-tight sm:text-3xl">2</div>
@@ -419,23 +438,52 @@ function Home() {
           </div>
         </section>
 
-        <section id="work" className="border-t border-white/10 bg-[#f0eee5] text-[#121411]">
-          <div className="mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <section id="about" className="scroll-mt-20 border-t border-black/10 bg-[#d8d2c5] text-[#11130f]">
+          <div className="mx-auto grid max-w-[1400px] gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12 lg:py-28">
+            <motion.div {...reveal}>
+              <div className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">About me</div>
+              <h2 className="mt-5 max-w-lg text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl">
+                The person behind the work.
+              </h2>
+            </motion.div>
+
+            <motion.div {...reveal} className="lg:pt-9">
+              <p className="max-w-3xl text-xl leading-9 text-black/68 sm:text-2xl sm:leading-10">
+                I’m a Zimbabwean software engineer living in Botswana. I enjoy taking complicated technical or business
+                problems and turning them into software that is clear, dependable and useful to the people operating it.
+              </p>
+              <p className="mt-6 max-w-3xl text-base leading-8 text-black/58 sm:text-lg">
+                My work moves between product thinking, software engineering, cloud infrastructure, AI automation and
+                practical IT operations. I work in English and Shona, with intermediate Setswana, and I am open to remote,
+                contract and full-time opportunities.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-3 text-sm">
+                {['Based in Botswana', 'Zimbabwean', 'English · Shona · Setswana', 'Available internationally'].map((item) => (
+                  <span key={item} className="rounded-full border border-black/15 px-4 py-2 text-black/65">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="work" className="scroll-mt-20 border-t border-white/10 bg-[#f0eee5] text-[#121411]">
+          <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
             <motion.div {...reveal} className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">Selected client work</div>
                 <h2 className="mt-5 text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                  Live work, not placeholder projects.
+                  Work I’ve delivered.
                 </h2>
               </div>
               <p className="max-w-2xl text-lg leading-8 text-black/58 lg:justify-self-end">
-                A selection of websites currently serving real organisations. Each project combines information
-                architecture, responsive engineering, deployment and the practical infrastructure required to keep a
-                business online.
+                These are live websites currently serving real organisations. Each one reflects the problem I was asked to
+                solve, the role I played and the practical work required to launch it properly.
               </p>
             </motion.div>
 
-            <div className="mt-16 space-y-6 lg:mt-24">
+            <div className="mt-14 space-y-5 lg:mt-20">
               {clientProjects.map((project, index) => (
                 <motion.article
                   key={project.name}
@@ -447,22 +495,17 @@ function Home() {
                     href={project.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={`relative min-h-[330px] overflow-hidden bg-gradient-to-br ${project.visualClass} p-6 sm:min-h-[420px] sm:p-10`}
+                    className={`relative min-h-[270px] overflow-hidden bg-gradient-to-br ${project.visualClass} p-6 sm:min-h-[380px] sm:p-10`}
                     aria-label={`Visit ${project.name}`}
                   >
                     <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.22)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.22)_1px,transparent_1px)] [background-size:40px_40px]" />
                     <div className="absolute -bottom-20 -right-16 h-72 w-72 rounded-full border border-white/30" />
-                    <div className="absolute -bottom-6 -right-6 h-48 w-48 rounded-full border border-white/20" />
-
                     <div className="relative flex items-center justify-between">
-                      <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${project.accentClass}`}>
-                        Live website
-                      </span>
+                      <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${project.accentClass}`}>Live website</span>
                       <span className="text-sm font-semibold text-white/70">{project.number}</span>
                     </div>
-
                     <div className="absolute inset-x-6 bottom-6 sm:inset-x-10 sm:bottom-10">
-                      <div className="overflow-hidden rounded-2xl border border-white/25 bg-black/55 shadow-2xl backdrop-blur-md transition duration-500 group-hover:-translate-y-2 group-hover:rotate-[-0.6deg]">
+                      <div className="overflow-hidden rounded-2xl border border-white/25 bg-black/55 shadow-2xl backdrop-blur-md transition duration-500 group-hover:-translate-y-2">
                         <div className="flex h-10 items-center gap-2 border-b border-white/10 px-4">
                           <span className="h-2.5 w-2.5 rounded-full bg-white/35" />
                           <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
@@ -473,9 +516,7 @@ function Home() {
                         </div>
                         <div className="p-6 sm:p-8">
                           <div className="text-xs uppercase tracking-[0.2em] text-white/45">{project.category}</div>
-                          <div className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-                            {project.name}
-                          </div>
+                          <div className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{project.name}</div>
                           <div className="mt-8 h-1.5 w-24 rounded-full bg-white/75" />
                           <div className="mt-3 h-1.5 w-40 rounded-full bg-white/25" />
                         </div>
@@ -485,19 +526,18 @@ function Home() {
 
                   <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12">
                     <div>
-                      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-black/40">{project.category}</div>
-                      <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{project.name}</h3>
-                      <p className="mt-5 max-w-xl text-base leading-7 text-black/58 sm:text-lg sm:leading-8">
-                        {project.description}
-                      </p>
+                      <h3 className="text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{project.name}</h3>
+                      <p className="mt-5 max-w-xl text-base leading-7 text-black/58 sm:text-lg sm:leading-8">{project.description}</p>
 
-                      <div className="mt-8 space-y-3 border-t border-black/10 pt-6">
-                        {project.services.map((service) => (
-                          <div key={service} className="flex items-center gap-3 text-sm text-black/65">
-                            <CheckCircle2 className="h-4 w-4" />
-                            {service}
-                          </div>
-                        ))}
+                      <div className="mt-7 space-y-5 border-t border-black/10 pt-6">
+                        <div>
+                          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-black/38">My role</div>
+                          <div className="mt-2 text-sm leading-6 text-black/68">{project.role}</div>
+                        </div>
+                        <div>
+                          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-black/38">What I delivered</div>
+                          <div className="mt-2 text-sm leading-6 text-black/68">{project.delivered}</div>
+                        </div>
                       </div>
                     </div>
 
@@ -505,7 +545,7 @@ function Home() {
                       href={project.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-10 inline-flex w-fit items-center gap-2 border-b border-black pb-1 text-sm font-semibold transition hover:gap-3"
+                      className="mt-8 inline-flex w-fit items-center gap-2 border-b border-black pb-1 text-sm font-semibold transition hover:gap-3"
                     >
                       Visit live website
                       <ExternalLink className="h-4 w-4" />
@@ -517,29 +557,29 @@ function Home() {
           </div>
         </section>
 
-        <section id="products" className="border-t border-white/10 bg-[#0b0c0e]">
-          <div className="mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <section id="products" className="scroll-mt-20 border-t border-white/10 bg-[#0b0c0e]">
+          <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
             <motion.div {...reveal} className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">Products nearing launch</div>
+                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">What I’m building</div>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                  Software built beyond the brochure website.
+                  Products and systems I’m bringing to life.
                 </h2>
               </div>
               <p className="max-w-xl text-lg leading-8 text-white/55">
-                Active products combining mobile interfaces, operational dashboards, data architecture and complex
-                business workflows.
+                This work shows how I think about trust, unreliable connectivity, business operations, personal productivity
+                and the everyday decisions software must support.
               </p>
             </motion.div>
 
-            <div className="mt-16 grid gap-5 lg:mt-20 lg:grid-cols-3">
+            <div className="mt-14 grid gap-5 lg:mt-20 lg:grid-cols-2">
               {products.map((product, index) => {
                 const Icon = product.icon;
                 return (
                   <motion.article
                     key={product.name}
                     {...reveal}
-                    transition={{ ...reveal.transition, delay: index * 0.08 }}
+                    transition={{ ...reveal.transition, delay: index * 0.06 }}
                     className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#15171a] p-7 sm:p-8"
                   >
                     <div className="absolute right-0 top-0 h-40 w-40 rounded-bl-full bg-[#c7ff5b]/[0.035] transition duration-500 group-hover:bg-[#c7ff5b]/[0.07]" />
@@ -553,10 +593,12 @@ function Home() {
                         </span>
                       </div>
 
-                      <h3 className="mt-14 text-3xl font-semibold tracking-[-0.04em]">{product.name}</h3>
-                      <p className="mt-5 text-base leading-7 text-white/52">{product.description}</p>
-
-                      <div className="mt-10 border-t border-white/10 pt-5 text-sm text-white/42">{product.platform}</div>
+                      <h3 className="mt-12 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{product.name}</h3>
+                      <p className="mt-5 text-base leading-7 text-white/55">{product.description}</p>
+                      <div className="mt-7 border-l-2 border-[#c7ff5b]/55 pl-4 text-sm leading-7 text-white/68">
+                        {product.decision}
+                      </div>
+                      <div className="mt-9 border-t border-white/10 pt-5 text-sm text-white/42">{product.platform}</div>
                     </div>
                   </motion.article>
                 );
@@ -565,22 +607,22 @@ function Home() {
           </div>
         </section>
 
-        <section id="capabilities" className="border-t border-black/10 bg-[#d8d2c5] text-[#11130f]">
-          <div className="mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <section id="capabilities" className="scroll-mt-20 border-t border-black/10 bg-[#d8d2c5] text-[#11130f]">
+          <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
             <motion.div {...reveal} className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">Engineering capabilities</div>
+                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">How I work</div>
                 <h2 className="mt-5 text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                  Serious capability, clearly defined.
+                  How I approach engineering.
                 </h2>
               </div>
               <p className="max-w-2xl text-lg leading-8 text-black/58 lg:justify-self-end lg:pt-10">
-                My work covers the technical lifecycle of modern software: product structure, application engineering,
-                data, integrations, infrastructure, security and operational support.
+                Depending on the project, I work across product structure, application engineering, data, integrations,
+                infrastructure, security and operational support.
               </p>
             </motion.div>
 
-            <div className="mt-16 grid gap-px overflow-hidden rounded-[2rem] border border-black/10 bg-black/10 lg:mt-24 lg:grid-cols-2">
+            <div className="mt-14 grid gap-px overflow-hidden rounded-[2rem] border border-black/10 bg-black/10 lg:mt-20 lg:grid-cols-2">
               {capabilities.map((capability, index) => {
                 const Icon = capability.icon;
                 return (
@@ -591,9 +633,9 @@ function Home() {
                     className="bg-[#e7e2d7] p-7 sm:p-10 lg:p-12"
                   >
                     <Icon className="h-7 w-7" />
-                    <h3 className="mt-9 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">{capability.title}</h3>
+                    <h3 className="mt-8 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">{capability.title}</h3>
                     <p className="mt-4 max-w-xl leading-7 text-black/58">{capability.description}</p>
-                    <div className="mt-8 space-y-3 border-t border-black/10 pt-6">
+                    <div className="mt-7 space-y-3 border-t border-black/10 pt-6">
                       {capability.areas.map((area) => (
                         <div key={area} className="flex items-start gap-3 text-sm leading-6 text-black/67">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black" />
@@ -606,11 +648,11 @@ function Home() {
               })}
             </div>
 
-            <motion.div {...reveal} className="mt-20 grid gap-8 border-t border-black/15 pt-10 lg:grid-cols-[0.7fr_1.3fr]">
+            <motion.div {...reveal} className="mt-16 grid gap-8 border-t border-black/15 pt-10 lg:grid-cols-[0.7fr_1.3fr]">
               <div>
                 <h3 className="text-3xl font-semibold tracking-[-0.04em]">Technology environment</h3>
                 <p className="mt-4 max-w-md leading-7 text-black/55">
-                  Technologies are selected according to product requirements, reliability, maintainability and deployment context.
+                  I select technologies according to the product, its reliability needs and the environment in which it must operate.
                 </p>
               </div>
               <div className="divide-y divide-black/10 border-y border-black/10">
@@ -625,15 +667,15 @@ function Home() {
           </div>
         </section>
 
-        <section id="experience" className="border-t border-white/10 bg-[#0b0c0e]">
-          <div className="mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <section id="experience" className="scroll-mt-20 border-t border-white/10 bg-[#0b0c0e]">
+          <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
             <div className="grid gap-20 lg:grid-cols-2 lg:gap-24">
               <motion.div {...reveal}>
                 <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">
                   <BriefcaseBusiness className="h-4 w-4" />
                   Experience
                 </div>
-                <h2 className="mt-5 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">Professional work.</h2>
+                <h2 className="mt-5 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">My experience.</h2>
 
                 <div className="mt-12 divide-y divide-white/10 border-y border-white/10">
                   {experience.map((item) => (
@@ -656,7 +698,7 @@ function Home() {
                   <GraduationCap className="h-4 w-4" />
                   Education
                 </div>
-                <h2 className="mt-5 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">Technical foundation.</h2>
+                <h2 className="mt-5 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">Education and training.</h2>
 
                 <div className="mt-12 space-y-4">
                   {education.map((item, index) => (
@@ -676,27 +718,27 @@ function Home() {
           </div>
         </section>
 
-        <section id="contact" className="border-t border-black/10 bg-[#c7ff5b] text-[#10140c]">
-          <div className="mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <section id="contact" className="scroll-mt-20 border-t border-black/10 bg-[#c7ff5b] text-[#10140c]">
+          <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
             <motion.div {...reveal} className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-black/50">Contact</div>
                 <h2 className="mt-5 max-w-5xl text-5xl font-semibold leading-[0.92] tracking-[-0.06em] sm:text-7xl lg:text-[6.7rem]">
-                  Have a serious product or technology challenge?
+                  Let’s build something useful.
                 </h2>
               </div>
 
               <div className="lg:pb-2">
                 <p className="text-lg leading-8 text-black/60">
-                  I’m available for selected software projects, product development, technical collaboration and professional opportunities.
+                  I’m available for selected software projects, technical collaboration, contract work and professional opportunities.
                 </p>
                 <div className="mt-8 flex flex-col gap-3">
                   <a
                     href="mailto:evans@vanssoftwarelab.com"
-                    className="inline-flex items-center justify-between rounded-2xl bg-[#10140c] px-5 py-4 font-semibold text-white transition hover:-translate-y-0.5"
+                    className="inline-flex items-center justify-between gap-4 rounded-2xl bg-[#10140c] px-5 py-4 font-semibold text-white transition hover:-translate-y-0.5"
                   >
-                    <span className="flex items-center gap-3"><Mail className="h-5 w-5" /> evans@vanssoftwarelab.com</span>
-                    <ArrowUpRight className="h-5 w-5" />
+                    <span className="flex min-w-0 items-center gap-3"><Mail className="h-5 w-5 shrink-0" /> <span className="truncate">evans@vanssoftwarelab.com</span></span>
+                    <ArrowUpRight className="h-5 w-5 shrink-0" />
                   </a>
                   <a
                     href="https://wa.me/26775377360"
