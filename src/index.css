@@ -73,6 +73,28 @@ img {
   text-wrap: balance;
 }
 
+/* The dedicated introduction replaces the original portfolio hero. */
+.portfolio-content main > section:first-child {
+  display: none;
+}
+
+.portfolio-content header {
+  transition:
+    opacity 320ms ease,
+    transform 320ms ease;
+}
+
+body:not(.intro-complete) .portfolio-content header {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+body.intro-complete .portfolio-content header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
