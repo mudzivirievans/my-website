@@ -3,14 +3,18 @@ import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown,
   ArrowUpRight,
+  BookOpen,
   BrainCircuit,
   BriefcaseBusiness,
   CloudCog,
   Code2,
   Database,
   ExternalLink,
+  Film,
+  FlaskConical,
   Github,
   GraduationCap,
+  Heart,
   Layers3,
   Linkedin,
   Mail,
@@ -21,6 +25,8 @@ import {
   ServerCog,
   ShieldCheck,
   Smartphone,
+  Sparkles,
+  Waves,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -54,8 +60,17 @@ type Capability = {
   icon: LucideIcon;
 };
 
+type PersonalNote = {
+  eyebrow: string;
+  title: string;
+  text: string;
+  icon: LucideIcon;
+  className: string;
+};
+
 const navigation = [
   { label: 'About', href: '#about' },
+  { label: 'Life', href: '#beyond' },
   { label: 'Work', href: '#work' },
   { label: 'Products', href: '#products' },
   { label: 'Approach', href: '#capabilities' },
@@ -201,6 +216,57 @@ const capabilities: Capability[] = [
   },
 ];
 
+const personalNotes: PersonalNote[] = [
+  {
+    eyebrow: 'Home and character',
+    title: 'Harare roots. Botswana chapter.',
+    text:
+      'I was born and raised in Harare, Zimbabwe, and I now live in Botswana. I am naturally quiet and shy. Most days you will find me indoors, in front of a computer, patiently working through one of my projects.',
+    icon: MapPin,
+    className: 'bg-[#d8d2c5] text-[#11130f]',
+  },
+  {
+    eyebrow: 'Reset',
+    title: 'Swimming clears my head.',
+    text:
+      'Swimming became a summer hobby and a way to step away from the screen, refresh my mind and return to difficult problems with better energy. I live quietly and I do not drink or smoke.',
+    icon: Waves,
+    className: 'bg-[#8ddcff] text-[#0e1822]',
+  },
+  {
+    eyebrow: 'The first dream',
+    title: 'Science and the hospital came first.',
+    text:
+      'Before software, my dream was to become a laboratory technician or radiographer. I wanted a career that brought physics, technical instruments and hospital work together. That curiosity about how things work never left me.',
+    icon: FlaskConical,
+    className: 'bg-[#f0c55e] text-[#18110a]',
+  },
+  {
+    eyebrow: 'Storytelling',
+    title: 'I also trained in filmmaking.',
+    text:
+      'I studied filmmaking, although I did not complete the final project. The film 3 Idiots was one of the stories that motivated me during that period and strengthened my interest in learning, purpose and choosing an honest path.',
+    icon: Film,
+    className: 'bg-[#f5d8bd] text-[#2d1915]',
+  },
+  {
+    eyebrow: 'Ideas and books',
+    title: 'Philosophy keeps me questioning.',
+    text:
+      'Outside technology, I return to Plato, Socrates and Aristotle. I have read works including The Republic and Apology. I also enjoy Chimamanda Ngozi Adichie’s talks and Dan Brown’s novels—especially The Da Vinci Code.',
+    icon: BookOpen,
+    className: 'bg-[#e7e2d7] text-[#11130f]',
+  },
+  {
+    eyebrow: 'Faith and enquiry',
+    title: 'Christian faith, with room for hard questions.',
+    text:
+      'I am a Christian and believe in Jesus Christ. My faith does not stop me from asking difficult philosophical and cosmological questions. I regularly listen to Dr Victor Tuwani Phume’s Cosmological Argument discussions.',
+    icon: Heart,
+    className: 'bg-[#c7ff5b] text-[#10140c]',
+  },
+];
+
 const technologyGroups = [
   {
     label: 'Application engineering',
@@ -284,7 +350,7 @@ function Home() {
             </span>
           </a>
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
             {navigation.map((item) => (
               <a key={item.href} href={item.href} className="text-sm text-white/58 transition hover:text-white">
                 {item.label}
@@ -369,13 +435,11 @@ function Home() {
                   <ArrowDown className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://wa.me/26775377360"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="#beyond"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3.5 font-medium text-white transition hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/[0.04]"
                 >
-                  Talk to me
-                  <ArrowUpRight className="h-4 w-4" />
+                  Beyond the screen
+                  <Sparkles className="h-4 w-4" />
                 </a>
               </div>
 
@@ -413,10 +477,10 @@ function Home() {
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                     <div className="flex items-center gap-2 text-sm font-medium text-white/70">
                       <MapPin className="h-4 w-4 text-[#c7ff5b]" />
-                      Botswana · Available internationally
+                      Harare roots · Building from Botswana
                     </div>
                     <p className="mt-3 max-w-sm text-xl font-medium leading-7 text-white sm:text-2xl">
-                      Practical engineering, thoughtful design and dependable delivery.
+                      Quiet by nature. Curious about technology, people, faith and ideas.
                     </p>
                   </div>
                 </div>
@@ -428,9 +492,9 @@ function Home() {
                     <div className="mt-1 text-xs leading-5 text-white/42">Architecture to deployment</div>
                   </div>
                   <div className="rounded-2xl border border-white/8 bg-white/[0.035] p-4">
-                    <Database className="h-5 w-5 text-[#c7ff5b]" />
-                    <div className="mt-4 text-sm font-medium">Business systems</div>
-                    <div className="mt-1 text-xs leading-5 text-white/42">Data, workflows and operations</div>
+                    <BookOpen className="h-5 w-5 text-[#c7ff5b]" />
+                    <div className="mt-4 text-sm font-medium">Beyond technology</div>
+                    <div className="mt-1 text-xs leading-5 text-white/42">Philosophy, faith and stories</div>
                   </div>
                 </div>
               </div>
@@ -453,18 +517,57 @@ function Home() {
                 problems and turning them into software that is clear, dependable and useful to the people operating it.
               </p>
               <p className="mt-6 max-w-3xl text-base leading-8 text-black/58 sm:text-lg">
-                My work moves between product thinking, software engineering, cloud infrastructure, AI automation and
-                practical IT operations. I work in English and Shona, with intermediate Setswana, and I am open to remote,
-                contract and full-time opportunities.
+                Technology is the work I do, but it is not the whole of who I am. My background in Harare, early interest in
+                hospital science, filmmaking, Christian faith and love of philosophy all shape how I think about people and
+                the systems I build.
               </p>
               <div className="mt-10 flex flex-wrap gap-3 text-sm">
-                {['Based in Botswana', 'Zimbabwean', 'English · Shona · Setswana', 'Available internationally'].map((item) => (
-                  <span key={item} className="rounded-full border border-black/15 px-4 py-2 text-black/65">
-                    {item}
-                  </span>
-                ))}
+                {['Born and raised in Harare', 'Living in Botswana', 'English · Shona · Setswana', 'Available internationally'].map(
+                  (item) => (
+                    <span key={item} className="rounded-full border border-black/15 px-4 py-2 text-black/65">
+                      {item}
+                    </span>
+                  ),
+                )}
               </div>
             </motion.div>
+          </div>
+        </section>
+
+        <section id="beyond" className="scroll-mt-20 border-t border-white/10 bg-[#0b0c0e]">
+          <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+            <motion.div {...reveal} className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">Beyond the screen</div>
+                <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+                  A quiet life, full of questions.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-lg leading-8 text-white/55 lg:justify-self-end">
+                Most of my time is spent building, reading or thinking. These are some of the experiences, beliefs and
+                interests that shaped the person writing the code.
+              </p>
+            </motion.div>
+
+            <div className="mt-14 grid gap-5 lg:mt-20 lg:grid-cols-2">
+              {personalNotes.map((note, index) => {
+                const Icon = note.icon;
+                return (
+                  <motion.article
+                    key={note.title}
+                    {...reveal}
+                    transition={{ ...reveal.transition, delay: index * 0.05 }}
+                    className={`relative overflow-hidden rounded-[2rem] p-7 sm:p-9 ${note.className}`}
+                  >
+                    <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border border-current opacity-10" />
+                    <Icon className="relative h-7 w-7" />
+                    <div className="relative mt-10 text-xs font-semibold uppercase tracking-[0.2em] opacity-50">{note.eyebrow}</div>
+                    <h3 className="relative mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em]">{note.title}</h3>
+                    <p className="relative mt-5 max-w-xl text-base leading-8 opacity-65">{note.text}</p>
+                  </motion.article>
+                );
+              })}
+            </div>
           </div>
         </section>
 
@@ -545,7 +648,7 @@ function Home() {
                       href={project.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-8 inline-flex w-fit items-center gap-2 border-b border-black pb-1 text-sm font-semibold transition hover:gap-3"
+                      className="mt-9 inline-flex w-fit items-center gap-2 border-b border-black pb-1 text-sm font-semibold transition hover:gap-3"
                     >
                       Visit live website
                       <ExternalLink className="h-4 w-4" />
@@ -561,18 +664,18 @@ function Home() {
           <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
             <motion.div {...reveal} className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">What I’m building</div>
+                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">What I am building</div>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
                   Products and systems I’m bringing to life.
                 </h2>
               </div>
               <p className="max-w-xl text-lg leading-8 text-white/55">
-                This work shows how I think about trust, unreliable connectivity, business operations, personal productivity
-                and the everyday decisions software must support.
+                These projects show how I think about trust, unreliable connectivity, business operations and the practical
+                problems behind software.
               </p>
             </motion.div>
 
-            <div className="mt-14 grid gap-5 lg:mt-20 lg:grid-cols-2">
+            <div className="mt-14 grid gap-5 md:grid-cols-2 lg:mt-20 lg:grid-cols-3">
               {products.map((product, index) => {
                 const Icon = product.icon;
                 return (
@@ -593,12 +696,10 @@ function Home() {
                         </span>
                       </div>
 
-                      <h3 className="mt-12 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{product.name}</h3>
-                      <p className="mt-5 text-base leading-7 text-white/55">{product.description}</p>
-                      <div className="mt-7 border-l-2 border-[#c7ff5b]/55 pl-4 text-sm leading-7 text-white/68">
-                        {product.decision}
-                      </div>
-                      <div className="mt-9 border-t border-white/10 pt-5 text-sm text-white/42">{product.platform}</div>
+                      <h3 className="mt-12 text-3xl font-semibold tracking-[-0.04em]">{product.name}</h3>
+                      <p className="mt-5 text-base leading-7 text-white/52">{product.description}</p>
+                      <p className="mt-6 border-l border-[#c7ff5b]/40 pl-4 text-sm leading-7 text-white/62">{product.decision}</p>
+                      <div className="mt-8 border-t border-white/10 pt-5 text-sm text-white/42">{product.platform}</div>
                     </div>
                   </motion.article>
                 );
@@ -737,7 +838,10 @@ function Home() {
                     href="mailto:evans@vanssoftwarelab.com"
                     className="inline-flex items-center justify-between gap-4 rounded-2xl bg-[#10140c] px-5 py-4 font-semibold text-white transition hover:-translate-y-0.5"
                   >
-                    <span className="flex min-w-0 items-center gap-3"><Mail className="h-5 w-5 shrink-0" /> <span className="truncate">evans@vanssoftwarelab.com</span></span>
+                    <span className="flex min-w-0 items-center gap-3">
+                      <Mail className="h-5 w-5 shrink-0" />
+                      <span className="truncate">evans@vanssoftwarelab.com</span>
+                    </span>
                     <ArrowUpRight className="h-5 w-5 shrink-0" />
                   </a>
                   <a
@@ -746,7 +850,10 @@ function Home() {
                     rel="noreferrer"
                     className="inline-flex items-center justify-between rounded-2xl border border-black/25 px-5 py-4 font-semibold transition hover:-translate-y-0.5 hover:bg-black/[0.05]"
                   >
-                    <span className="flex items-center gap-3"><Phone className="h-5 w-5" /> +267 75 377 360</span>
+                    <span className="flex items-center gap-3">
+                      <Phone className="h-5 w-5" />
+                      +267 75 377 360
+                    </span>
                     <ArrowUpRight className="h-5 w-5" />
                   </a>
                 </div>
@@ -760,7 +867,7 @@ function Home() {
         <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-12">
           <div>
             <div className="text-sm font-medium">Evans Mudziviri</div>
-            <div className="mt-1 text-sm text-white/40">Software engineer · Botswana</div>
+            <div className="mt-1 text-sm text-white/40">Software engineer · Zimbabwean in Botswana</div>
           </div>
 
           <div className="flex items-center gap-3">
