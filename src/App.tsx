@@ -4,6 +4,7 @@ import Home from "./components/home";
 import BeyondScreen from "./components/beyond-screen";
 import IntroScreen from "./components/intro-screen";
 import WorkShowcasePortal from "./components/work-showcase";
+import PortfolioContentAdjustments from "./components/portfolio-content-adjustments";
 import { Toaster } from "./components/ui/toaster";
 
 function PortfolioPage() {
@@ -35,6 +36,7 @@ function PortfolioPage() {
       <div className="portfolio-content">
         <Home />
         <WorkShowcasePortal />
+        <PortfolioContentAdjustments />
       </div>
     </>
   );
