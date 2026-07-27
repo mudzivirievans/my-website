@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
@@ -22,7 +23,6 @@ type WebsiteProject = {
   outcome: string;
   url: string;
   image: string;
-  secondaryImage?: string;
   accent: string;
   featured?: boolean;
 };
@@ -33,7 +33,7 @@ type ProductProject = {
   description: string;
   status: string;
   logo: string;
-  fit: 'contain' | 'cover';
+  surface: 'midnight' | 'cosmic' | 'paper' | 'electric';
 };
 
 const screenshotUrl = (url: string) =>
@@ -42,9 +42,9 @@ const screenshotUrl = (url: string) =>
 const websites: WebsiteProject[] = [
   {
     name: 'SAMT Campaign Platform',
-    category: 'SaaS · Campaign Operations',
+    category: 'SaaS · Campaign operations',
     description:
-      'A focused campaign workspace that brings WhatsApp, SMS and email planning, sending and delivery visibility into one product.',
+      'A focused workspace that brings WhatsApp, SMS and email campaign planning, sending and delivery visibility into one product.',
     outcome: 'Unified multichannel campaign experience',
     url: 'https://samt-project.vercel.app',
     image: screenshotUrl('https://samt-project.vercel.app'),
@@ -53,10 +53,10 @@ const websites: WebsiteProject[] = [
   },
   {
     name: "Rachel's Concrete Kitchens",
-    category: 'Interiors · Premium Brand Website',
+    category: 'Interiors · Premium brand website',
     description:
       'A refined visual website for custom kitchens and fitted interiors, designed to make the craftsmanship feel considered, local and premium.',
-    outcome: 'Editorial product presentation and enquiry journey',
+    outcome: 'Editorial presentation and enquiry journey',
     url: 'https://rachel-s-concrete-kitchens.vercel.app',
     image: screenshotUrl('https://rachel-s-concrete-kitchens.vercel.app'),
     accent: '#f0c55e',
@@ -64,9 +64,9 @@ const websites: WebsiteProject[] = [
   },
   {
     name: 'Hybrid Project Solutions',
-    category: 'Industrial · Equipment Sourcing',
+    category: 'Industrial · Equipment sourcing',
     description:
-      'A bold, high-contrast platform positioning Hybrid as a dependable single sourcing partner for industrial machinery and spare parts across Africa.',
+      'A bold platform positioning Hybrid as a dependable sourcing partner for industrial machinery and spare parts across Africa.',
     outcome: 'Clear sourcing proposition and quote pathway',
     url: 'https://hybrid-project-solutions.vercel.app',
     image: screenshotUrl('https://hybrid-project-solutions.vercel.app'),
@@ -75,9 +75,9 @@ const websites: WebsiteProject[] = [
   },
   {
     name: 'JohnBrooks Associates',
-    category: 'Engineering & Development',
+    category: 'Engineering & development',
     description:
-      'A structured corporate website presenting multidisciplinary engineering services, delivery capability and a direct path to project enquiries.',
+      'A structured corporate website presenting multidisciplinary engineering services, delivery capability and direct project enquiries.',
     outcome: 'Corporate credibility and service clarity',
     url: 'https://johnbrooks.co.zw',
     image: screenshotUrl('https://johnbrooks.co.zw'),
@@ -85,7 +85,7 @@ const websites: WebsiteProject[] = [
   },
   {
     name: 'Manase Utilities',
-    category: 'Irrigation & Solar',
+    category: 'Irrigation & solar',
     description:
       'A practical service website for irrigation, solar and farm-power solutions with strong trust signals and clear conversion actions.',
     outcome: 'Service discovery and site-visit enquiries',
@@ -95,9 +95,9 @@ const websites: WebsiteProject[] = [
   },
   {
     name: 'Sandgrouse BnB',
-    category: 'Hospitality & Direct Booking',
+    category: 'Hospitality & direct booking',
     description:
-      'A hospitality experience built around the property, guest confidence and an easy route from discovery to direct booking.',
+      'A hospitality experience built around the property, guest confidence and a simple route from discovery to direct booking.',
     outcome: 'Property storytelling and booking intent',
     url: 'https://sandgrouseresort.co.zw',
     image: screenshotUrl('https://sandgrouseresort.co.zw'),
@@ -105,7 +105,7 @@ const websites: WebsiteProject[] = [
   },
   {
     name: 'Onicorp Engineers',
-    category: 'Built Environment Consulting',
+    category: 'Built environment consulting',
     description:
       'A premium engineering website organising technical expertise, divisions and project delivery into a confident digital presence.',
     outcome: 'Technical positioning and project enquiries',
@@ -123,7 +123,7 @@ const products: ProductProject[] = [
       'An intelligence layer for documents, clients, workflows, reporting and the operational decisions behind a growing company.',
     status: 'Active development',
     logo: thee_bi,
-    fit: 'contain',
+    surface: 'midnight',
   },
   {
     name: 'Agent E',
@@ -132,7 +132,7 @@ const products: ProductProject[] = [
       'A Windows assistant for natural-language computer tasks, file organisation, storage checks and approved workflow automation.',
     status: 'Working system',
     logo: agent_e,
-    fit: 'cover',
+    surface: 'cosmic',
   },
   {
     name: 'TruDwell',
@@ -141,7 +141,7 @@ const products: ProductProject[] = [
       'A verified property marketplace and rental operations platform designed around trust between tenants and property owners.',
     status: 'Pre-launch',
     logo: trudwell,
-    fit: 'contain',
+    surface: 'paper',
   },
   {
     name: 'The E',
@@ -150,7 +150,7 @@ const products: ProductProject[] = [
       'A connected family of intelligent tools and business systems built for the realities of modern African companies.',
     status: 'Evolving platform',
     logo: thee,
-    fit: 'cover',
+    surface: 'electric',
   },
 ];
 
@@ -159,79 +159,92 @@ const supportingProducts = [
     name: 'The E Booking System',
     status: 'Final development',
     description: 'Guest booking and property operations for hotels, BnBs and short-stay businesses.',
+    icon: MonitorUp,
+    accent: '#8ddcff',
   },
   {
     name: 'The E POS',
     status: 'Market-ready build',
     description: 'Offline-first checkout, stock control and retail operations for growing businesses.',
+    icon: Boxes,
+    accent: '#f0c55e',
   },
 ];
 
+const initialsFor = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase();
+
 function WebsiteCard({
   project,
-  large = false,
   index,
+  lead = false,
 }: {
   project: WebsiteProject;
-  large?: boolean;
   index: number;
+  lead?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
+  const domain = project.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   return (
     <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 32 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-70px' }}
-      transition={{ duration: 0.72, delay: index * 0.055, ease: [0.22, 1, 0.36, 1] }}
-      className={`work-visual-card group relative overflow-hidden rounded-[1.8rem] bg-[#111315] ${
-        large ? 'min-h-[520px] lg:row-span-2' : 'min-h-[360px]'
-      }`}
-      style={{ '--project-accent': project.accent } as React.CSSProperties}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.68, delay: index * 0.045, ease: [0.22, 1, 0.36, 1] }}
+      className={`project-case-card ${lead ? 'project-case-card--lead' : ''}`}
+      style={{ '--project-accent': project.accent } as CSSProperties}
     >
-      <a
-        href={project.url}
-        target="_blank"
-        rel="noreferrer"
-        className="absolute inset-0"
-        aria-label={`Visit ${project.name}`}
-      >
-        <img
-          src={project.image}
-          alt={`${project.name} website screenshot`}
-          className="work-primary-image absolute inset-0 h-full w-full object-cover object-top"
-        />
-        {project.secondaryImage && (
-          <img
-            src={project.secondaryImage}
-            alt=""
-            aria-hidden="true"
-            className="work-secondary-image absolute inset-0 h-full w-full object-cover object-top"
-          />
-        )}
+      <a href={project.url} target="_blank" rel="noreferrer" className="project-case-link">
+        <div className="project-preview-frame">
+          <div className="project-browser-bar" aria-hidden="true">
+            <span className="project-browser-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="project-browser-domain">{domain}</span>
+          </div>
 
-        <div className="work-card-shade absolute inset-0" />
-        <div className="work-card-grid absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 sm:p-7">
-          <span className="rounded-full border border-white/20 bg-black/35 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 backdrop-blur-md">
-            Live project
-          </span>
-          <span className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition duration-300 group-hover:rotate-45 group-hover:border-white/45">
-            <ArrowUpRight className="h-4 w-4" />
-          </span>
+          <div className="project-preview-canvas">
+            <div className="project-preview-placeholder" aria-hidden="true">
+              <span>{initialsFor(project.name)}</span>
+              <small>{imageFailed ? 'Live website' : 'Loading live preview'}</small>
+            </div>
+            {!imageFailed && (
+              <img
+                src={project.image}
+                alt={`${project.name} website interface`}
+                className={`project-preview-image ${imageLoaded ? 'is-loaded' : ''}`}
+                loading={index < 2 ? 'eager' : 'lazy'}
+                decoding="async"
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageFailed(true)}
+              />
+            )}
+            <div className="project-preview-topline">
+              <span>Live project</span>
+              <span className="project-open-button" aria-hidden="true">
+                <ArrowUpRight />
+              </span>
+            </div>
+          </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/58">{project.category}</div>
-          <h3 className={`mt-3 max-w-2xl font-semibold leading-[0.98] tracking-[-0.045em] text-white ${large ? 'text-4xl sm:text-6xl' : 'text-3xl sm:text-4xl'}`}>
-            {project.name}
-          </h3>
-          <p className={`mt-4 max-w-2xl leading-7 text-white/66 ${large ? 'text-base sm:text-lg' : 'text-sm sm:text-base'}`}>
-            {project.description}
-          </p>
-          <div className="mt-6 flex items-center gap-3 border-t border-white/18 pt-5 text-sm text-white/72">
-            <span className="h-2 w-2 rounded-full bg-[var(--project-accent)] shadow-[0_0_18px_var(--project-accent)]" />
+        <div className="project-case-content">
+          <div className="project-case-category">{project.category}</div>
+          <h3>{project.name}</h3>
+          <p>{project.description}</p>
+          <div className="project-case-outcome">
+            <span />
             {project.outcome}
           </div>
         </div>
@@ -245,33 +258,24 @@ function ProductCard({ product, index }: { product: ProductProject; index: numbe
 
   return (
     <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.68, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="product-system-card group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#15171a] p-4 sm:p-5"
+      transition={{ duration: 0.66, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      className="product-editorial-card"
     >
-      <div className="product-system-glow absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100" />
-      <div className="relative overflow-hidden rounded-[1.35rem] border border-white/8 bg-[#090b11]">
-        <div className="aspect-[16/11] overflow-hidden">
-          <img
-            src={product.logo}
-            alt={`${product.name} logo`}
-            className={`h-full w-full transition duration-700 group-hover:scale-[1.035] ${
-              product.fit === 'contain' ? 'object-contain p-7 sm:p-10' : 'object-cover'
-            }`}
-          />
-        </div>
+      <div className={`product-logo-stage product-logo-stage--${product.surface}`}>
+        <div className="product-logo-orbit" aria-hidden="true" />
+        <img src={product.logo} alt={`${product.name} logo`} className="product-editorial-logo" />
       </div>
-      <div className="relative px-2 pb-3 pt-7 sm:px-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-xs font-semibold uppercase tracking-[0.19em] text-[#8ddcff]">{product.category}</span>
-          <span className="rounded-full border border-[#c7ff5b]/22 bg-[#c7ff5b]/[0.06] px-3 py-1 text-[11px] font-medium text-[#d7ff86]">
-            {product.status}
-          </span>
+
+      <div className="product-editorial-content">
+        <div className="product-editorial-meta">
+          <span>{product.category}</span>
+          <strong>{product.status}</strong>
         </div>
-        <h3 className="mt-5 text-3xl font-semibold tracking-[-0.045em] text-white">{product.name}</h3>
-        <p className="mt-4 leading-7 text-white/52">{product.description}</p>
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
       </div>
     </motion.article>
   );
@@ -283,48 +287,46 @@ function WorkShowcase() {
   const reduceMotion = useReducedMotion();
 
   const reveal = {
-    initial: reduceMotion ? false : { opacity: 0, y: 28 },
+    initial: reduceMotion ? false : { opacity: 0, y: 26 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: '-70px' },
-    transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
   };
 
   return (
     <>
-      <section id="work" className="scroll-mt-20 border-t border-black/10 bg-[#f0eee5] text-[#121411]">
-        <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-          <motion.div {...reveal} className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+      <section id="work" className="work-showcase-section">
+        <div className="showcase-shell">
+          <motion.div {...reveal} className="showcase-intro showcase-intro--light">
             <div>
-              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-black/45">
-                <Globe2 className="h-4 w-4" />
+              <div className="showcase-kicker">
+                <Globe2 />
                 Selected work
               </div>
-              <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.94] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-                Websites, platforms and systems I’ve built.
-              </h2>
+              <h2 className="showcase-title">Digital work built for real organisations.</h2>
             </div>
-            <p className="max-w-2xl text-lg leading-8 text-black/58 lg:justify-self-end">
-              Real client websites and working products—shown through the interfaces themselves, not placeholder mockups.
+            <p className="showcase-copy">
+              Live websites and working platforms, presented as clear case studies instead of text layered over busy screenshots.
             </p>
           </motion.div>
 
-          <div className="mt-14 grid gap-5 lg:mt-20 lg:grid-cols-2">
-            <WebsiteCard project={featured[0]} large index={0} />
-            <div className="grid gap-5">
+          <div className="featured-projects-stack">
+            <WebsiteCard project={featured[0]} index={0} lead />
+            <div className="featured-projects-pair">
               <WebsiteCard project={featured[1]} index={1} />
               <WebsiteCard project={featured[2]} index={2} />
             </div>
           </div>
 
-          <motion.div {...reveal} className="mt-20 flex flex-col gap-5 border-t border-black/12 pt-10 sm:flex-row sm:items-end sm:justify-between">
+          <motion.div {...reveal} className="client-work-heading">
             <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-black/42">Live client websites</div>
-              <h3 className="mt-3 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">More work in production.</h3>
+              <span>Live client websites</span>
+              <h3>More work in production.</h3>
             </div>
-            <div className="text-sm text-black/48">Engineering · Utilities · Hospitality · Built environment</div>
+            <p>Engineering · Utilities · Hospitality · Built environment</p>
           </motion.div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="client-project-grid">
             {clientWork.map((project, index) => (
               <WebsiteCard key={project.name} project={project} index={index + 3} />
             ))}
@@ -332,54 +334,49 @@ function WorkShowcase() {
         </div>
       </section>
 
-      <section id="products" className="scroll-mt-20 border-t border-white/10 bg-[#0b0c0e] text-[#f4f2ea]">
-        <div className="relative mx-auto max-w-[1400px] overflow-hidden px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-          <div className="product-orbit pointer-events-none absolute -right-48 top-10 h-[34rem] w-[34rem] rounded-full border border-[#8ddcff]/10" />
-          <motion.div {...reveal} className="relative grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+      <section id="products" className="products-showcase-section">
+        <div className="showcase-shell products-showcase-shell">
+          <div className="products-atmosphere" aria-hidden="true" />
+          <motion.div {...reveal} className="showcase-intro showcase-intro--dark">
             <div>
-              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c7ff5b]">
-                <Sparkles className="h-4 w-4" />
+              <div className="showcase-kicker showcase-kicker--lime">
+                <Sparkles />
                 Products & systems
               </div>
-              <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.94] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-                Products I’m bringing to life.
-              </h2>
+              <h2 className="showcase-title">Products shaped by practical problems.</h2>
             </div>
-            <p className="max-w-2xl text-lg leading-8 text-white/54 lg:justify-self-end">
-              Systems shaped by practical problems: business administration, property trust, unreliable connectivity and useful AI automation.
+            <p className="showcase-copy">
+              Business administration, property trust, unreliable connectivity and useful AI automation—each product begins with a problem worth solving.
             </p>
           </motion.div>
 
-          <div className="relative mt-14 grid gap-5 md:grid-cols-2 lg:mt-20">
+          <div className="product-editorial-grid">
             {products.map((product, index) => (
               <ProductCard key={product.name} product={product} index={index} />
             ))}
           </div>
 
-          <motion.div
-            {...reveal}
-            className="relative mt-6 grid overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] md:grid-cols-2"
-          >
-            {supportingProducts.map((product, index) => (
-              <article
-                key={product.name}
-                className={`p-7 sm:p-9 ${index === 1 ? 'border-t border-white/10 md:border-l md:border-t-0' : ''}`}
-              >
-                <div className="flex items-start justify-between gap-5">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/[0.04]">
-                    {index === 0 ? <MonitorUp className="h-5 w-5 text-[#8ddcff]" /> : <Boxes className="h-5 w-5 text-[#f0c55e]" />}
-                  </span>
-                  <span className="text-xs font-medium text-[#d7ff86]">{product.status}</span>
-                </div>
-                <h3 className="mt-10 text-2xl font-semibold tracking-[-0.04em]">{product.name}</h3>
-                <p className="mt-4 max-w-xl leading-7 text-white/50">{product.description}</p>
-              </article>
-            ))}
+          <motion.div {...reveal} className="supporting-product-grid">
+            {supportingProducts.map((product) => {
+              const Icon = product.icon;
+              return (
+                <article key={product.name} className="supporting-product-card">
+                  <div className="supporting-product-topline">
+                    <span className="supporting-product-icon" style={{ color: product.accent }}>
+                      <Icon />
+                    </span>
+                    <strong>{product.status}</strong>
+                  </div>
+                  <h3>{product.name}</h3>
+                  <p>{product.description}</p>
+                </article>
+              );
+            })}
           </motion.div>
 
-          <motion.div {...reveal} className="relative mt-12 flex flex-wrap items-center gap-3 text-sm text-white/42">
-            <Layers3 className="h-4 w-4 text-[#c7ff5b]" />
-            Product strategy, interface design, software engineering, deployment and continuous improvement.
+          <motion.div {...reveal} className="product-delivery-note">
+            <Layers3 />
+            <span>Product strategy, interface design, engineering, deployment and continuous improvement.</span>
           </motion.div>
         </div>
       </section>
