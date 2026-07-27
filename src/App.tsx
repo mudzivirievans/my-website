@@ -1,12 +1,34 @@
-import { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./components/home";
+import BeyondScreen from "./components/beyond-screen";
 import IntroScreen from "./components/intro-screen";
-import BeyondTheScreen from "./components/beyond-the-screen";
 import WorkShowcasePortal from "./components/work-showcase";
 import { Toaster } from "./components/ui/toaster";
 
 function PortfolioPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Evans Mudziviri | Software Engineer";
+
+    const openPersonalStory = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const link = target?.closest<HTMLAnchorElement>('a[href="#beyond"]');
+
+      if (!link) return;
+
+      event.preventDefault();
+      navigate("/beyond-the-screen");
+    };
+
+    document.addEventListener("click", openPersonalStory);
+
+    return () => {
+      document.removeEventListener("click", openPersonalStory);
+    };
+  }, [navigate]);
+
   return (
     <>
       <IntroScreen />
@@ -24,7 +46,7 @@ function App() {
       <>
         <Routes>
           <Route path="/" element={<PortfolioPage />} />
-          <Route path="/beyond-the-screen" element={<BeyondTheScreen />} />
+          <Route path="/beyond-the-screen" element={<BeyondScreen />} />
         </Routes>
         <Toaster />
       </>
