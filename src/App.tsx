@@ -15,7 +15,6 @@ type Project = {
   year: string;
   description: string;
   href?: string;
-  visual: string;
 };
 
 type FormStatus = "idle" | "loading" | "error";
@@ -34,20 +33,20 @@ const services: Service[] = [
   },
   {
     number: "02",
-    title: "Mobile Apps & AI Systems",
+    title: "UI/UX & Frontend",
     description:
-      "I build mobile applications and intelligent business tools that automate repetitive work, improve customer engagement and make services easier to access.",
+      "I design and develop clear, responsive interfaces that feel natural to use across phones, tablets and desktop screens, with careful attention to accessibility and performance.",
     capabilities: [
-      "Flutter and cross-platform applications",
-      "AI assistants and workflow automation",
-      "WhatsApp, email and messaging integrations",
+      "Responsive interface development",
+      "Interaction design and motion",
+      "Accessible, performance-focused UI",
     ],
   },
   {
     number: "03",
-    title: "IT Systems & Digital Infrastructure",
+    title: "Optimisation & IT Systems",
     description:
-      "I help businesses configure, maintain and troubleshoot the technical systems behind their daily operations, from hosting and business email to security and cloud deployment.",
+      "I improve and support the systems behind daily business operations, from application performance and technical troubleshooting to domains, business email, security and cloud deployment.",
     capabilities: [
       "Technical support and troubleshooting",
       "Domains, DNS, SSL and business email",
@@ -59,49 +58,44 @@ const services: Service[] = [
 const projects: Project[] = [
   {
     number: "01",
-    name: "TheE Agent",
-    category: "AI Customer Engagement Platform",
-    year: "2026",
-    description:
-      "A WhatsApp-first AI customer engagement system designed to answer enquiries, qualify leads, automate conversations and connect customers with businesses.",
-    visual: "agent",
-  },
-  {
-    number: "02",
-    name: "TheE POS",
-    category: "Retail Management System",
-    year: "2026",
-    description:
-      "An offline-first point-of-sale and business management platform for African retailers, covering checkout, stock, customers, suppliers, reporting and multi-branch operations.",
-    visual: "pos",
-  },
-  {
-    number: "03",
-    name: "TruDwell",
-    category: "Verified Rental Marketplace",
-    year: "2026",
-    description:
-      "A Southern African rental platform designed to connect tenants with verified accommodation while giving landlords tools for property management, payments and communication.",
-    visual: "trudwell",
-  },
-  {
-    number: "04",
-    name: "TheE Booking Desk",
-    category: "Hospitality Management Platform",
-    year: "2026",
-    description:
-      "A booking and property-management platform for hotels, lodges, guest houses and short-term accommodation businesses.",
-    visual: "booking",
-  },
-  {
-    number: "05",
     name: "Business Website Portfolio",
     category: "Website Design & Development",
     year: "2026",
     description:
       "Responsive business websites created for Sandgrouse Resort, John Brooks Associates Engineers, Onicorp Engineers and other growing organisations.",
     href: "https://johnbrooks.co.zw",
-    visual: "websites",
+  },
+  {
+    number: "02",
+    name: "TheE Agent",
+    category: "AI Customer Engagement Platform",
+    year: "2026",
+    description:
+      "A WhatsApp-first AI customer engagement system designed to answer enquiries, qualify leads, automate conversations and connect customers with businesses.",
+  },
+  {
+    number: "03",
+    name: "TheE POS",
+    category: "Retail Management System",
+    year: "2026",
+    description:
+      "An offline-first point-of-sale and business management platform for African retailers, covering checkout, stock, customers, suppliers, reporting and multi-branch operations.",
+  },
+  {
+    number: "04",
+    name: "TruDwell",
+    category: "Verified Rental Marketplace",
+    year: "2026",
+    description:
+      "A Southern African rental platform designed to connect tenants with verified accommodation while giving landlords tools for property management, payments and communication.",
+  },
+  {
+    number: "05",
+    name: "TheE Booking Desk",
+    category: "Hospitality Management Platform",
+    year: "2026",
+    description:
+      "A booking and property-management platform for hotels, lodges, guest houses and short-term accommodation businesses.",
   },
 ];
 
@@ -130,6 +124,31 @@ const navItems = [
   ["Contact", "#contact"],
 ] as const;
 
+function ArrowUpRightIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6 18 18 6M9 6h9v9" />
+    </svg>
+  );
+}
+
+function ArrowDownRightIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="m6 6 12 12M18 9v9H9" />
+    </svg>
+  );
+}
+
+function MenuGlyph({ open }: { open: boolean }) {
+  return (
+    <span className={`menu-glyph ${open ? "is-open" : ""}`} aria-hidden="true">
+      <i />
+      <i />
+    </span>
+  );
+}
+
 function useRevealAnimations() {
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -146,7 +165,7 @@ function useRevealAnimations() {
           entry.target.classList.toggle("is-visible", entry.isIntersecting);
         });
       },
-      { threshold: 0.12, rootMargin: "-4% 0px -7%" },
+      { threshold: 0.1, rootMargin: "-4% 0px -8%" },
     );
 
     elements.forEach((element) => observer.observe(element));
@@ -154,7 +173,7 @@ function useRevealAnimations() {
   }, []);
 }
 
-function useBotswanaClock() {
+function useBotswanaTime() {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -162,70 +181,101 @@ function useBotswanaClock() {
     return () => window.clearInterval(timer);
   }, []);
 
-  return useMemo(
-    () =>
-      new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Africa/Gaborone",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      }).format(now),
-    [now],
-  );
-}
+  return useMemo(() => {
+    const timezone = "Africa/Gaborone";
+    const dateParts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: timezone,
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    }).formatToParts(now);
 
-function ProjectVisual({ project }: { project: Project }) {
-  return (
-    <div className={`project-visual project-visual--${project.visual}`} aria-hidden="true">
-      <div className="visual-topline">
-        <span>{project.number}</span>
-        <span>{project.year}</span>
-      </div>
-      <div className="visual-stage">
-        <div className="visual-window">
-          <div className="visual-window-bar"><i /><i /><i /></div>
-          <div className="visual-window-body">
-            <span className="visual-kicker">{project.category}</span>
-            <strong>{project.name}</strong>
-            <div className="visual-lines"><i /><i /><i /></div>
-            <div className="visual-action">OPEN SYSTEM ↗</div>
-          </div>
-        </div>
-        <div className="visual-phone">
-          <div className="visual-phone-notch" />
-          <span>{project.name}</span>
-          <i /><i /><i />
-        </div>
-      </div>
-      <div className="visual-wordmark">{project.name}</div>
-    </div>
-  );
+    const part = (type: "year" | "month" | "day") =>
+      Number(dateParts.find((item) => item.type === type)?.value ?? 0);
+
+    const tomorrowAtNoonUtc = new Date(Date.UTC(part("year"), part("month") - 1, part("day") + 1, 12));
+    const availabilityDate = new Intl.DateTimeFormat("en-GB", {
+      timeZone: timezone,
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+      .format(tomorrowAtNoonUtc)
+      .replace(/ /g, " ")
+      .toUpperCase();
+
+    const localTime = new Intl.DateTimeFormat("en-GB", {
+      timeZone: timezone,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    }).format(now);
+
+    return { availabilityDate, localTime };
+  }, [now]);
 }
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showFloatingMenu, setShowFloatingMenu] = useState(false);
   const [activeProject, setActiveProject] = useState(0);
+  const [activeService, setActiveService] = useState(0);
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
-  const localTime = useBotswanaClock();
-  const currentDate = useMemo(
-    () =>
-      new Intl.DateTimeFormat("en-GB", {
-        month: "short",
-        year: "2-digit",
-        timeZone: "Africa/Gaborone",
-      })
-        .format(new Date())
-        .replace(" ", " ’"),
-    [],
-  );
+  const { availabilityDate, localTime } = useBotswanaTime();
 
   useRevealAnimations();
 
   useEffect(() => {
-    document.title = "Evans Mudziviri — Software Developer & Founder";
+    document.title = "Evans Mudziviri — Software Developer & IT Specialist";
   }, []);
+
+  useEffect(() => {
+    const updateMenuVisibility = () => {
+      const servicesSection = document.getElementById("services");
+      if (!servicesSection) return;
+      const revealPoint = servicesSection.offsetTop - window.innerHeight * 0.28;
+      setShowFloatingMenu(window.scrollY >= revealPoint);
+    };
+
+    updateMenuVisibility();
+    window.addEventListener("scroll", updateMenuVisibility, { passive: true });
+    window.addEventListener("resize", updateMenuVisibility);
+    return () => {
+      window.removeEventListener("scroll", updateMenuVisibility);
+      window.removeEventListener("resize", updateMenuVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    const servicePanels = Array.from(document.querySelectorAll<HTMLElement>("[data-service-index]"));
+    if (!("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top));
+
+        if (visible[0]) {
+          const index = Number((visible[0].target as HTMLElement).dataset.serviceIndex ?? 0);
+          setActiveService(index);
+        }
+      },
+      { threshold: 0.12, rootMargin: "-28% 0px -52%" },
+    );
+
+    servicePanels.forEach((panel) => observer.observe(panel));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", menuOpen);
+    return () => document.body.classList.remove("menu-open");
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -261,33 +311,47 @@ function App() {
     <div className="site-shell">
       <header className="site-header">
         <a className="site-identity" href="#top" aria-label="Evans Mudziviri home">
-          Software Developer &amp; Founder
+          Software Developer<br />&amp; IT Specialist
         </a>
 
-        <nav className="desktop-nav" aria-label="Primary navigation">
+        <nav className="hero-nav" aria-label="Primary navigation">
           {navItems.map(([label, href]) => (
             <a key={href} href={href}>
               <span>{label}</span><span aria-hidden="true">{label}</span>
             </a>
           ))}
         </nav>
+      </header>
 
-        <button
-          className="menu-button"
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? "Close" : "Menu"}
-        </button>
+      <button
+        className={`floating-menu-button ${showFloatingMenu || menuOpen ? "is-visible" : ""}`}
+        type="button"
+        aria-expanded={menuOpen}
+        aria-controls="site-menu-overlay"
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <MenuGlyph open={menuOpen} />
+      </button>
 
-        <nav id="mobile-navigation" className={`mobile-nav ${menuOpen ? "is-open" : ""}`} aria-label="Mobile navigation">
+      <aside id="site-menu-overlay" className={`menu-overlay ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen}>
+        <nav aria-label="Expanded navigation">
+          <a href="#top" onClick={closeMenu}>Home</a>
           {navItems.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+            <a key={href} href={href} onClick={closeMenu}>{label}</a>
           ))}
         </nav>
-      </header>
+        <div className="menu-overlay-footer">
+          <div>
+            <span>Email address</span>
+            <a href="mailto:info@vanssoftwarelab.com">info@vanssoftwarelab.com</a>
+          </div>
+          <div className="menu-socials">
+            <a href="https://linkedin.com/in/evans-mudziviri-b9b45a161" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/mudzivirievans" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </aside>
 
       <main>
         <section className="hero" id="top" aria-labelledby="hero-title">
@@ -298,40 +362,66 @@ function App() {
 
           <div className="hero-lower">
             <div className="hero-copy hero-load hero-load--one">
-              <span className="diagonal-arrow" aria-hidden="true">↘</span>
+              <ArrowDownRightIcon className="hero-direction" />
               <p>I build modern websites, mobile applications, AI-powered products and reliable business systems that help organisations work better and grow.</p>
-              <a className="pill-link" href="#contact">CONTACT ↗</a>
+              <a className="pill-link" href="#contact">
+                <span>CONTACT</span><ArrowUpRightIcon />
+              </a>
             </div>
 
             <div className="hero-date hero-load hero-load--two">
               <span>AVAILABLE FOR WORK</span>
-              <strong>{currentDate.toUpperCase()}</strong>
+              <strong>{availabilityDate}</strong>
             </div>
           </div>
         </section>
 
+        <section className="hero-transition" aria-hidden="true">
+          <div className="transition-shine" />
+        </section>
+
         <section className="section services-section" id="services" aria-labelledby="services-title">
-          <div className="section-intro" data-reveal>
+          <div className="section-intro section-intro--services" data-reveal>
             <div>
-              <h2 className="section-display" id="services-title">What I Do /</h2>
-              <span className="section-label">(Services)</span>
+              <h2 className="section-display" id="services-title">WHAT I DO /</h2>
+              <span className="section-label">(SERVICES)</span>
             </div>
             <p>I design and build reliable digital products for businesses, startups and organisations. My work covers modern websites, mobile applications, AI automation, business software and the technical systems needed to keep them running.</p>
           </div>
 
-          <div className="service-list">
-            {services.map((service) => (
-              <article className="service-row" key={service.number} data-reveal>
-                <span className="service-number">({service.number})</span>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <ol>
-                  {service.capabilities.map((capability, index) => (
-                    <li key={capability}><span>0{index + 1}</span>{capability}</li>
-                  ))}
-                </ol>
-              </article>
-            ))}
+          <div className="service-experience">
+            <div className="service-sticky-stack">
+              {services.map((service, index) => (
+                <div
+                  className={`sticky-service-title ${index <= activeService ? "is-active" : ""}`}
+                  id={`service-title-${service.number}`}
+                  key={service.number}
+                >
+                  <span>({service.number})</span>
+                  <h3>{service.title}</h3>
+                </div>
+              ))}
+            </div>
+
+            <div className="service-details">
+              {services.map((service, index) => (
+                <article
+                  className="service-detail"
+                  key={service.number}
+                  data-service-index={index}
+                  aria-labelledby={`service-title-${service.number}`}
+                >
+                  <div className="service-detail-content">
+                    <p>{service.description}</p>
+                    <ol>
+                      {service.capabilities.map((capability, capabilityIndex) => (
+                        <li key={capability}><span>0{capabilityIndex + 1}</span><strong>{capability}</strong></li>
+                      ))}
+                    </ol>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -344,43 +434,43 @@ function App() {
             <p>Digital products and business systems created to solve practical problems, improve operations and help African businesses grow.</p>
           </div>
 
-          <div className="projects-layout">
-            <div className="project-list" role="list">
-              {projects.map((project, index) => (
-                <article
-                  key={project.name}
-                  role="listitem"
-                  className={`project-row ${activeProject === index ? "is-active" : ""}`}
-                  onMouseEnter={() => setActiveProject(index)}
-                  onFocusCapture={() => setActiveProject(index)}
+          <div className="project-list" role="list">
+            {projects.map((project, index) => (
+              <article
+                key={project.name}
+                role="listitem"
+                className={`project-row ${activeProject === index ? "is-active" : ""}`}
+                onMouseEnter={() => setActiveProject(index)}
+                onFocusCapture={() => setActiveProject(index)}
+                data-reveal
+              >
+                <button
+                  type="button"
+                  className="project-selector"
+                  aria-expanded={activeProject === index}
                   onClick={() => setActiveProject(index)}
-                  data-reveal
                 >
-                  <button type="button" className="project-selector" aria-label={`Show ${project.name}`}>
-                    <span className="project-number">{project.number}</span>
-                    <span className="project-content">
-                      <span className="project-meta">{project.category}</span>
-                      <strong>{project.name}</strong>
-                      <span className="project-description">{project.description}</span>
-                    </span>
-                    <span className="project-year">{project.year}</span>
-                  </button>
-                  {project.href && (
-                    <a className="project-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`Visit ${project.name}`}>↗</a>
-                  )}
-                </article>
-              ))}
-            </div>
-
-            <div className="project-preview" data-reveal>
-              <ProjectVisual project={projects[activeProject]} />
-            </div>
+                  <span className="project-number">{project.number}</span>
+                  <span className="project-content">
+                    <span className="project-meta">{project.category}</span>
+                    <strong>{project.name}</strong>
+                    <span className="project-description">{project.description}</span>
+                  </span>
+                  <span className="project-year">{project.year}</span>
+                </button>
+                {project.href && (
+                  <a className="project-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`Visit ${project.name}`}>
+                    <ArrowUpRightIcon />
+                  </a>
+                )}
+              </article>
+            ))}
           </div>
         </section>
 
         <section className="statement-section" aria-label="Professional identity">
           <div className="statement-line" data-reveal>DEVELOPER</div>
-          <div className="statement-line statement-line--right" data-reveal>FOUNDER</div>
+          <div className="statement-line statement-line--right" data-reveal>IT SPECIALIST</div>
           <div className="statement-line" data-reveal>CREATOR /</div>
         </section>
 
@@ -411,7 +501,7 @@ function App() {
             </div>
             <div className="about-copy">
               <span className="section-label" data-reveal>(About Me)</span>
-              <h2 id="about-title" data-reveal>I’m a Southern African software developer and founder of VansSoftwareLab, driven by a desire to turn ambitious ideas into practical digital products.</h2>
+              <h2 id="about-title" data-reveal>I’m a Southern African software developer and IT specialist at VansSoftwareLab, driven by a desire to turn ambitious ideas into practical digital products.</h2>
               <div className="about-body" data-reveal>
                 <p>I work across websites, mobile applications, AI automation, business platforms and IT systems. My focus is not only making software work, but making it clear, useful and reliable for the people and organisations using it.</p>
                 <p>I believe Africa should not only consume technology. We should build it, shape it and use it to solve the problems around us. That belief guides the products and businesses I am working to create.</p>
@@ -441,7 +531,7 @@ function App() {
             </label>
             <div className="form-actions">
               <button type="submit" disabled={formStatus === "loading"}>
-                {formStatus === "loading" ? "Opening email…" : "Get a quote"}<span aria-hidden="true">↗</span>
+                <span>{formStatus === "loading" ? "Opening email…" : "Get a quote"}</span><ArrowUpRightIcon />
               </button>
               <p className={formStatus === "error" ? "form-message is-error" : "form-message"} aria-live="polite">{formMessage}</p>
             </div>
@@ -461,9 +551,9 @@ function App() {
           </div>
           <div className="footer-column">
             <h3>Socials</h3>
-            <a href="https://linkedin.com/in/evans-mudziviri-b9b45a161" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href="https://github.com/mudzivirievans" target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a href="mailto:info@vanssoftwarelab.com">VansSoftwareLab ↗</a>
+            <a className="footer-external" href="https://linkedin.com/in/evans-mudziviri-b9b45a161" target="_blank" rel="noreferrer"><span>LinkedIn</span><ArrowUpRightIcon /></a>
+            <a className="footer-external" href="https://github.com/mudzivirievans" target="_blank" rel="noreferrer"><span>GitHub</span><ArrowUpRightIcon /></a>
+            <a className="footer-external" href="mailto:info@vanssoftwarelab.com"><span>VansSoftwareLab</span><ArrowUpRightIcon /></a>
           </div>
           <div className="footer-column footer-contact">
             <h3>Contact</h3>
