@@ -1,0 +1,146 @@
+/* Mobile-first editorial refinement for the portfolio hero. */
+
+@media (max-width: 760px) {
+  .hero {
+    padding-right: max(1.45rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(2.15rem + var(--safe-bottom));
+    padding-left: max(1.45rem, env(safe-area-inset-left, 0px));
+  }
+
+  .hero-name {
+    width: 100%;
+    margin-top: 32dvh;
+    font-size: clamp(4.15rem, 17.4vw, 5rem);
+    font-weight: 500;
+    line-height: 0.8;
+    letter-spacing: 0;
+  }
+
+  .hero-name > span,
+  .hero-name > span:last-child {
+    display: block;
+    width: max-content;
+    max-width: none;
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .hero-name > span:first-child {
+    transform-origin: left center;
+  }
+
+  .hero-name > span:last-child {
+    margin-top: 0.09em;
+    transform-origin: left center;
+    animation-name: hero-reveal-condensed;
+  }
+
+  .hero-lower {
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) 8.15rem;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "copy copy"
+      "button date";
+    align-content: space-between;
+    align-items: end;
+    gap: 1.15rem 0.9rem;
+    margin-top: 1.35rem;
+    padding-bottom: 0;
+  }
+
+  .hero-copy p {
+    width: 25ch;
+    max-width: 100%;
+    font-size: clamp(0.98rem, 4.05vw, 1.08rem);
+    line-height: 1.39;
+    letter-spacing: -0.022em;
+  }
+
+  .pill-link {
+    width: 11.6rem;
+    min-width: 0;
+    min-height: 3.25rem;
+    padding: 0.72rem 1rem 0.72rem 1.35rem;
+    font-size: 0.88rem;
+  }
+
+  .pill-link svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .hero-date {
+    width: 8.15rem;
+  }
+
+  .hero-date > span::after {
+    font-size: 0.65rem;
+    line-height: 1.17;
+    letter-spacing: 0.09em;
+  }
+
+  .hero-date strong {
+    margin-top: 0.28rem;
+    line-height: 0.85;
+  }
+
+  .availability-day {
+    font-size: clamp(2.08rem, 9.45vw, 2.6rem);
+    white-space: nowrap;
+  }
+
+  .availability-year {
+    margin-top: 0.02em;
+    font-size: clamp(1.4rem, 6.3vw, 1.72rem);
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding-bottom: calc(1.8rem + var(--safe-bottom));
+  }
+
+  .hero-name {
+    margin-top: 30dvh;
+    font-size: 16.9vw;
+  }
+
+  .hero-lower {
+    grid-template-columns: minmax(0, 1fr) 7.55rem;
+    margin-top: 1.15rem;
+  }
+
+  .hero-copy p {
+    width: 23ch;
+    font-size: 0.95rem;
+  }
+
+  .pill-link {
+    width: 10.7rem;
+    min-height: 3.1rem;
+  }
+
+  .hero-date {
+    width: 7.55rem;
+  }
+
+  .availability-day {
+    font-size: 2rem;
+  }
+
+  .availability-year {
+    font-size: 1.34rem;
+  }
+}
+
+@keyframes hero-reveal-condensed {
+  from {
+    transform: translateY(115%) scaleX(0.64);
+  }
+  to {
+    transform: translateY(0) scaleX(0.64);
+  }
+}
