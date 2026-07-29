@@ -35,8 +35,31 @@ const setupHeaderSwap = () => {
   scheduleHeaderSwap();
 };
 
+const ensureHandwrittenIntro = (heroName: HTMLElement) => {
+  const existing = document.querySelector<HTMLElement>(".hero-handwritten-intro");
+
+  if (existing) return;
+
+  const intro = document.createElement("div");
+  intro.className = "hero-handwritten-intro";
+  intro.setAttribute("aria-label", "Hey, I'm");
+  intro.innerHTML = `
+    <svg viewBox="0 0 230 76" aria-hidden="true" focusable="false">
+      <text class="hero-script-text" x="5" y="53">Hey, I’m</text>
+      <path class="hero-script-flourish" d="M126 62C151 60 178 58 221 51" />
+    </svg>
+  `;
+
+  heroName.before(intro);
+};
+
 const enhanceHero = () => {
+  const heroName = document.querySelector<HTMLElement>(".hero-name");
   const nameParts = document.querySelectorAll<HTMLElement>(".hero-name > span");
+
+  if (heroName) {
+    ensureHandwrittenIntro(heroName);
+  }
 
   if (nameParts[0] && nameParts[0].textContent !== "Evans") {
     nameParts[0].textContent = "Evans";
