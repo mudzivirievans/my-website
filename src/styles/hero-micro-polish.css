@@ -1,0 +1,34 @@
+@media (max-width: 760px) {
+  .site-identity { font-size: 0.96rem; }
+  .hero-nav { font-size: 1.07rem; }
+
+  .hero-name {
+    margin-left: 0.35rem;
+  }
+
+  .hero-name > span:last-child {
+    margin-top: 0.21em;
+  }
+
+  .hero-lower {
+    margin-top: 1.85rem;
+  }
+
+  .hero-copy p {
+    color: #706e68;
+  }
+
+  .hero-date {
+    transform: translateY(0.1rem);
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-name {
+    margin-left: 0.25rem;
+  }
+
+  .hero-lower {
+    margin-top: 1.6rem;
+  }
+}
