@@ -12,7 +12,7 @@
     margin-top: 32dvh;
     font-size: clamp(4.15rem, 17.4vw, 5rem);
     font-weight: 500;
-    line-height: 0.8;
+    line-height: 0.84;
     letter-spacing: 0;
   }
 
@@ -20,21 +20,22 @@
   .hero-name > span:last-child {
     display: block;
     width: max-content;
-    max-width: none;
-    font-size: 1em;
+    max-width: 100%;
     font-weight: 500;
-    letter-spacing: 0;
     white-space: nowrap;
+    transform-origin: left center;
   }
 
   .hero-name > span:first-child {
-    transform-origin: left center;
+    font-size: 0.9em;
+    letter-spacing: -0.012em;
   }
 
   .hero-name > span:last-child {
-    margin-top: 0.09em;
-    transform-origin: left center;
-    animation-name: hero-reveal-condensed;
+    margin-top: 0.16em;
+    font-size: 0.72em;
+    letter-spacing: 0.012em;
+    animation-name: hero-reveal;
   }
 
   .hero-lower {
@@ -108,6 +109,14 @@
     font-size: 16.9vw;
   }
 
+  .hero-name > span:first-child {
+    font-size: 0.91em;
+  }
+
+  .hero-name > span:last-child {
+    font-size: 0.73em;
+  }
+
   .hero-lower {
     grid-template-columns: minmax(0, 1fr) 7.55rem;
     margin-top: 1.15rem;
@@ -133,14 +142,5 @@
 
   .availability-year {
     font-size: 1.34rem;
-  }
-}
-
-@keyframes hero-reveal-condensed {
-  from {
-    transform: translateY(115%) scaleX(0.64);
-  }
-  to {
-    transform: translateY(0) scaleX(0.64);
   }
 }
