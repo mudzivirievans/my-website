@@ -1,4 +1,4 @@
-/* Editorial paint highlights inspired by hand-marked magazine typography. */
+/* Editorial paint highlights inspired by layered hand-marked magazine typography. */
 
 .hero-name {
   text-transform: none;
@@ -12,36 +12,74 @@
   position: relative;
   z-index: 0;
   display: inline;
-  margin-inline: -0.05em;
-  padding: 0.02em 0.09em 0.05em;
+  margin-inline: -0.04em;
+  padding: 0.01em 0.08em 0.04em;
   color: inherit;
   font: inherit;
   font-weight: inherit !important;
-  background-repeat: no-repeat;
-  background-position: left 58%;
-  background-size: 0% 1.22em;
+  background-repeat: no-repeat, no-repeat;
+  background-position: left 44%, right 66%;
+  background-size: 0% 1.02em, 0% 0.96em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  animation: brush-paint 720ms cubic-bezier(.2, .8, .2, 1) forwards;
+  animation: double-brush-paint 1.08s cubic-bezier(.2, .8, .2, 1) forwards;
 }
 
 .brush-highlight--one {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 72' preserveAspectRatio='none'%3E%3Cpath d='M4 13L54 9L100 12L151 6L202 10L251 5L336 11L333 60L282 57L235 63L181 58L128 64L77 58L8 63Z' fill='%23E3B7F4'/%3E%3Cpath d='M12 18L70 13L126 17L184 11L244 15L328 12' fill='none' stroke='%23D59AEF' stroke-width='4' stroke-linecap='round' opacity='.5'/%3E%3C/svg%3E");
-  animation-delay: 900ms;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M3 8L43 4L87 7L132 3L176 7L220 4L266 8L337 5L335 57L293 54L248 59L202 55L156 60L110 56L64 59L5 56Z' fill='%23E8C7FA'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M4 10L52 7L98 11L145 6L191 10L238 6L284 11L337 8L333 58L287 55L241 60L194 56L148 61L101 57L55 60L6 57Z' fill='%23DDAEF2' fill-opacity='.82'/%3E%3C/svg%3E");
+  animation-delay: 820ms;
 }
 
 .brush-highlight--two {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 72' preserveAspectRatio='none'%3E%3Cpath d='M5 16L62 10L117 14L169 8L226 13L278 8L337 15L331 61L279 58L221 64L164 59L109 65L56 59L8 63Z' fill='%23F2D66D'/%3E%3Cpath d='M17 57L77 54L138 59L198 53L259 58L326 54' fill='none' stroke='%23E4C13E' stroke-width='4' stroke-linecap='round' opacity='.45'/%3E%3C/svg%3E");
-  animation-delay: 1550ms;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M3 9L47 5L91 8L137 4L181 8L226 5L272 9L337 6L334 57L289 54L244 59L198 55L152 60L106 56L60 59L5 56Z' fill='%23F7E083'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M4 11L53 7L100 11L147 6L194 10L241 6L288 11L337 8L333 58L287 55L240 60L193 56L146 61L99 57L52 60L6 57Z' fill='%23F0C94C' fill-opacity='.78'/%3E%3C/svg%3E");
+  animation-delay: 1.72s;
 }
 
-@keyframes brush-paint {
-  from {
-    background-size: 0% 1.22em;
+@keyframes double-brush-paint {
+  0%, 5% {
+    background-size: 0% 1.02em, 0% 0.96em;
   }
-  to {
-    background-size: 100% 1.22em;
+  48% {
+    background-size: 100% 1.02em, 0% 0.96em;
   }
+  55% {
+    background-size: 100% 1.02em, 0% 0.96em;
+  }
+  100% {
+    background-size: 100% 1.02em, 100% 0.96em;
+  }
+}
+
+.site-header {
+  transition:
+    opacity 260ms ease,
+    transform 360ms cubic-bezier(.22, 1, .36, 1),
+    visibility 260ms ease;
+}
+
+body.is-past-hero .site-header {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-0.75rem);
+}
+
+body:not(.is-past-hero) .floating-menu-button {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-0.8rem) scale(0.9) !important;
+}
+
+body.is-past-hero .floating-menu-button {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) scale(1) !important;
 }
 
 @media (max-width: 760px) {
@@ -66,6 +104,11 @@
 @media (prefers-reduced-motion: reduce) {
   .brush-highlight {
     animation: none;
-    background-size: 100% 1.22em;
+    background-size: 100% 1.02em, 100% 0.96em;
+  }
+
+  .site-header,
+  .floating-menu-button {
+    transition: none;
   }
 }
