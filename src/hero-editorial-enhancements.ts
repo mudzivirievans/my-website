@@ -1,3 +1,40 @@
+let headerSwapReady = false;
+let headerSwapFrame: number | null = null;
+
+const syncHeaderSwap = () => {
+  const servicesSection = document.getElementById("services");
+
+  if (!servicesSection) return;
+
+  const swapLine = Math.min(128, window.innerHeight * 0.14);
+  const isPastHero = servicesSection.getBoundingClientRect().top <= swapLine;
+  document.body.classList.toggle("is-past-hero", isPastHero);
+};
+
+const scheduleHeaderSwap = () => {
+  if (headerSwapFrame !== null) return;
+
+  headerSwapFrame = window.requestAnimationFrame(() => {
+    headerSwapFrame = null;
+    syncHeaderSwap();
+  });
+};
+
+const setupHeaderSwap = () => {
+  const header = document.querySelector<HTMLElement>(".site-header");
+  const floatingMenu = document.querySelector<HTMLButtonElement>(".floating-menu-button");
+
+  if (!header || !floatingMenu) return;
+
+  if (!headerSwapReady) {
+    headerSwapReady = true;
+    window.addEventListener("scroll", scheduleHeaderSwap, { passive: true });
+    window.addEventListener("resize", scheduleHeaderSwap);
+  }
+
+  scheduleHeaderSwap();
+};
+
 const enhanceHero = () => {
   const nameParts = document.querySelectorAll<HTMLElement>(".hero-name > span");
 
@@ -11,20 +48,20 @@ const enhanceHero = () => {
 
   const paragraph = document.querySelector<HTMLParagraphElement>(".hero-copy p");
 
-  if (!paragraph || paragraph.dataset.editorialCopy === "true") {
-    return;
+  if (paragraph && paragraph.dataset.editorialCopy !== "true") {
+    paragraph.innerHTML = [
+      "I create ",
+      '<span class="brush-highlight brush-highlight--one">AI-powered systems and software</span>',
+      ", modern websites, mobile apps and reliable IT solutions designed to help businesses ",
+      '<span class="brush-highlight brush-highlight--two">work smarter and grow</span>',
+      ".",
+    ].join("");
+
+    paragraph.dataset.editorialCopy = "true";
+    paragraph.classList.add("hero-editorial-copy");
   }
 
-  paragraph.innerHTML = [
-    "I create ",
-    '<span class="brush-highlight brush-highlight--one">AI-powered systems and software</span>',
-    ", modern websites, mobile apps and reliable IT solutions designed to help businesses ",
-    '<span class="brush-highlight brush-highlight--two">work smarter and grow</span>',
-    ".",
-  ].join("");
-
-  paragraph.dataset.editorialCopy = "true";
-  paragraph.classList.add("hero-editorial-copy");
+  setupHeaderSwap();
 };
 
 const root = document.getElementById("root");
