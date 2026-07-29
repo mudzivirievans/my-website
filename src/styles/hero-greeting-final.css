@@ -1,0 +1,73 @@
+/* One unified handwritten greeting above the editorial name. */
+.hero-handwritten-intro {
+  display: block;
+  width: max-content;
+  margin-top: calc(33dvh - 1.8rem);
+  margin-bottom: 0.42rem;
+  margin-left: 0.52rem;
+  color: #4c4943;
+  line-height: 1;
+  pointer-events: none;
+  transform: rotate(-1deg);
+  transform-origin: left bottom;
+}
+
+.hero-intro-script {
+  display: inline-block;
+  font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+  font-size: 1.58rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  animation: single-handwriting-reveal 820ms cubic-bezier(.22, 1, .36, 1) 120ms forwards;
+}
+
+@keyframes single-handwriting-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-handwritten-intro {
+    margin-top: calc(32dvh - 1.65rem);
+    margin-bottom: 0.38rem;
+    margin-left: 0.48rem;
+  }
+
+  .hero-intro-script {
+    font-size: 1.48rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-handwritten-intro {
+    margin-top: calc(30dvh - 1.55rem);
+    margin-left: 0.4rem;
+  }
+
+  .hero-intro-script {
+    font-size: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro-script {
+    clip-path: none;
+    opacity: 1;
+    animation: none;
+  }
+}
