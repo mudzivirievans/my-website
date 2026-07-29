@@ -1,4 +1,4 @@
-/* Editorial paint highlights and handwritten hero introduction. */
+/* Editorial paint highlights and an integrated handwritten hero introduction. */
 
 .hero-name {
   margin-top: 0 !important;
@@ -7,14 +7,14 @@
 
 .hero-handwritten-intro {
   flex: 0 0 auto;
-  width: 11.4rem;
-  height: 3.25rem;
-  margin-top: calc(33dvh - 3.05rem);
-  margin-bottom: -0.05rem;
-  margin-left: 0.55rem;
-  color: #4c4943;
+  width: 8.45rem;
+  height: 2.1rem;
+  margin-top: calc(33dvh - 1.95rem);
+  margin-bottom: -0.36rem;
+  margin-left: 0.35rem;
+  color: #34322e;
   pointer-events: none;
-  transform: rotate(-2.5deg);
+  transform: rotate(-1.2deg);
   transform-origin: left bottom;
 }
 
@@ -28,53 +28,42 @@
 .hero-script-text {
   fill: currentColor;
   stroke: currentColor;
-  stroke-width: 0.28;
+  stroke-width: 0.12;
   paint-order: stroke fill;
-  font-family: "Snell Roundhand", "Segoe Script", "Bradley Hand", "Apple Chancery", cursive;
-  font-size: 46px;
+  font-family: "Bradley Hand", "Noteworthy", "Segoe Print", "Chalkboard SE", cursive;
+  font-size: 35px;
   font-weight: 400;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.9px;
   clip-path: inset(0 100% 0 0);
   opacity: 0;
-  animation: handwriting-reveal 1.25s cubic-bezier(.22, 1, .36, 1) 160ms forwards;
-}
-
-.hero-script-flourish {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-dasharray: 110;
-  stroke-dashoffset: 110;
-  opacity: 0.72;
-  animation: handwriting-flourish 680ms cubic-bezier(.22, 1, .36, 1) 1.02s forwards;
+  animation: handwriting-reveal 920ms cubic-bezier(.22, 1, .36, 1) 140ms forwards;
 }
 
 .hero-name > span:first-child {
-  animation-delay: 1.04s !important;
+  animation-delay: 760ms !important;
 }
 
 .hero-name > span:last-child {
-  animation-delay: 1.18s !important;
+  animation-delay: 900ms !important;
 }
 
 .hero-copy p,
 .pill-link,
 .hero-date {
   opacity: 0;
-  animation: hero-sequence-fade 620ms ease forwards;
+  animation: hero-sequence-fade 560ms ease forwards;
 }
 
 .hero-copy p {
-  animation-delay: 1.72s;
+  animation-delay: 1.34s;
 }
 
 .pill-link {
-  animation-delay: 1.92s;
+  animation-delay: 1.52s;
 }
 
 .hero-date {
-  animation-delay: 2.04s;
+  animation-delay: 1.64s;
 }
 
 .hero-editorial-copy {
@@ -102,14 +91,14 @@
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M3 8L43 4L87 7L132 3L176 7L220 4L266 8L337 5L335 57L293 54L248 59L202 55L156 60L110 56L64 59L5 56Z' fill='%23E8C7FA'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M4 10L52 7L98 11L145 6L191 10L238 6L284 11L337 8L333 58L287 55L241 60L194 56L148 61L101 57L55 60L6 57Z' fill='%23DDAEF2' fill-opacity='.82'/%3E%3C/svg%3E");
-  animation-delay: 2.24s;
+  animation-delay: 1.88s;
 }
 
 .brush-highlight--two {
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M3 9L47 5L91 8L137 4L181 8L226 5L272 9L337 6L334 57L289 54L244 59L198 55L152 60L106 56L60 59L5 56Z' fill='%23F7E083'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 64' preserveAspectRatio='none'%3E%3Cpath d='M4 11L53 7L100 11L147 6L194 10L241 6L288 11L337 8L333 58L287 55L240 60L193 56L146 61L99 57L52 60L6 57Z' fill='%23F0C94C' fill-opacity='.78'/%3E%3C/svg%3E");
-  animation-delay: 3.38s;
+  animation-delay: 3.02s;
 }
 
 @keyframes handwriting-reveal {
@@ -123,15 +112,6 @@
   100% {
     clip-path: inset(0 0 0 0);
     opacity: 1;
-  }
-}
-
-@keyframes handwriting-flourish {
-  from {
-    stroke-dashoffset: 110;
-  }
-  to {
-    stroke-dashoffset: 0;
   }
 }
 
@@ -186,11 +166,11 @@ body.is-past-hero .floating-menu-button {
 
 @media (max-width: 760px) {
   .hero-handwritten-intro {
-    width: 9.8rem;
-    height: 2.85rem;
-    margin-top: calc(32dvh - 2.65rem);
-    margin-bottom: 0;
-    margin-left: 0.55rem;
+    width: 7.85rem;
+    height: 1.95rem;
+    margin-top: calc(32dvh - 1.82rem);
+    margin-bottom: -0.32rem;
+    margin-left: 0.35rem;
   }
 
   .hero-name > span:first-child,
@@ -207,10 +187,11 @@ body.is-past-hero .floating-menu-button {
 
 @media (max-width: 380px) {
   .hero-handwritten-intro {
-    width: 9.2rem;
-    height: 2.7rem;
-    margin-top: calc(30dvh - 2.5rem);
-    margin-left: 0.45rem;
+    width: 7.35rem;
+    height: 1.85rem;
+    margin-top: calc(30dvh - 1.7rem);
+    margin-bottom: -0.28rem;
+    margin-left: 0.25rem;
   }
 
   .hero-editorial-copy {
@@ -222,11 +203,6 @@ body.is-past-hero .floating-menu-button {
   .hero-script-text {
     clip-path: none;
     opacity: 1;
-    animation: none;
-  }
-
-  .hero-script-flourish {
-    stroke-dashoffset: 0;
     animation: none;
   }
 
