@@ -1,0 +1,293 @@
+/* Final mobile-first refinement for hero identity, section rhythm and footer socials. */
+
+.hero-handwritten-intro {
+  display: flex;
+  width: auto;
+  height: auto;
+  align-items: baseline;
+  gap: 0.42rem;
+  margin-top: calc(33dvh - 2.45rem);
+  margin-bottom: -0.48rem;
+  margin-left: 0.32rem;
+  color: #38352f;
+  transform: none;
+}
+
+.hero-handwritten-intro svg {
+  flex: 0 0 auto;
+  width: 6.75rem;
+  height: 2.55rem;
+}
+
+.hero-script-text {
+  stroke-width: 0.08;
+  font-family: "Marker Felt", "Noteworthy", "Segoe Print", "Bradley Hand", cursive;
+  font-size: 43px;
+  letter-spacing: -1.7px;
+}
+
+.hero-intro-im {
+  color: #5e5a53;
+  font-size: 1.48rem;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  opacity: 0;
+  transform: translateY(0.08rem);
+  animation: intro-im-reveal 460ms ease 560ms forwards;
+}
+
+@keyframes intro-im-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-social-arrow {
+  font-size: 0.88rem;
+  line-height: 1;
+}
+
+body.is-past-hero .floating-menu-button:not(.is-visible) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-0.8rem) scale(0.9) !important;
+}
+
+@media (max-width: 760px) {
+  .hero-handwritten-intro {
+    gap: 0.34rem;
+    margin-top: calc(32dvh - 2.32rem);
+    margin-bottom: -0.46rem;
+    margin-left: 0.34rem;
+  }
+
+  .hero-handwritten-intro svg {
+    width: 6.25rem;
+    height: 2.35rem;
+  }
+
+  .hero-script-text {
+    font-size: 41px;
+  }
+
+  .hero-intro-im {
+    font-size: 1.36rem;
+  }
+
+  .section {
+    padding: 4rem var(--page-pad);
+  }
+
+  .section-intro {
+    gap: 1.55rem;
+    margin-bottom: 2.35rem;
+    padding-right: 0;
+  }
+
+  .section-intro--services .section-display {
+    max-width: none;
+    font-size: clamp(3rem, 12.8vw, 4.05rem);
+    line-height: 0.9;
+    letter-spacing: -0.07em;
+    white-space: nowrap;
+  }
+
+  .section-label {
+    margin-top: 0.68rem;
+    font-size: 0.88rem;
+  }
+
+  .section-intro > p {
+    font-size: 1.02rem;
+    line-height: 1.44;
+  }
+
+  .service-experience {
+    border-top: 1px solid var(--light-line);
+  }
+
+  .service-sticky-stack {
+    top: 6.35rem;
+    padding-top: 0;
+  }
+
+  .sticky-service-title {
+    padding: 0.82rem 5.2rem 0.82rem 0;
+  }
+
+  .sticky-service-title:first-child {
+    border-top: 0;
+  }
+
+  .sticky-service-title h3 {
+    font-size: clamp(2.05rem, 8.8vw, 2.85rem);
+  }
+
+  .service-detail {
+    min-height: 55dvh;
+    padding: 2rem 0 2.75rem;
+  }
+
+  .service-detail-content {
+    width: calc(100% - 3rem);
+    margin-left: 3rem;
+  }
+
+  .service-detail-content > p {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .service-detail-content ol {
+    margin-top: 1.4rem;
+  }
+
+  .service-detail-content li {
+    padding: 0.78rem 0;
+  }
+
+  .works-section .section-intro {
+    margin-bottom: 2rem;
+  }
+
+  .project-selector {
+    padding-top: 1.35rem;
+    padding-bottom: 1.35rem;
+  }
+
+  .project-meta {
+    margin-bottom: 0.55rem;
+  }
+
+  .project-row.is-active .project-description {
+    margin-top: 0.9rem;
+  }
+
+  .statement-section {
+    padding: 4.25rem var(--page-pad);
+  }
+
+  .statement-line {
+    font-size: clamp(3.35rem, 14.3vw, 4.7rem);
+    line-height: 0.88;
+  }
+
+  .statement-line + .statement-line {
+    margin-top: 0.18em;
+  }
+
+  .statement-line--right {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .statement-line--right span {
+    display: inline;
+    white-space: nowrap;
+  }
+
+  .skills-section {
+    padding: 4rem 0;
+  }
+
+  .skills-heading {
+    gap: 0.72rem;
+    margin-bottom: 2rem;
+    padding-right: var(--page-pad);
+  }
+
+  .skill-band {
+    padding: 1rem 0 1.25rem;
+  }
+
+  .skill-label {
+    margin-bottom: 0.85rem;
+  }
+
+  .about-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .about-copy h2 {
+    margin-top: 1.5rem;
+    font-size: clamp(2.85rem, 10.6vw, 4rem);
+  }
+
+  .about-body {
+    gap: 1.35rem;
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+  }
+
+  .contact-section {
+    padding: 4rem var(--page-pad) 2.8rem;
+  }
+
+  .contact-form {
+    margin-top: 2.6rem;
+  }
+
+  .footer-top {
+    gap: 1.8rem;
+    padding: 2.6rem 0;
+  }
+
+  .footer-column {
+    gap: 0.5rem;
+  }
+
+  .footer-socials-column {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.2rem;
+    row-gap: 0.65rem;
+  }
+
+  .footer-socials-column h3 {
+    grid-column: 1 / -1;
+  }
+
+  .footer-socials-column .footer-external {
+    justify-content: space-between;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-handwritten-intro {
+    margin-top: calc(30dvh - 2.22rem);
+    margin-left: 0.28rem;
+  }
+
+  .hero-handwritten-intro svg {
+    width: 5.9rem;
+  }
+
+  .hero-intro-im {
+    font-size: 1.28rem;
+  }
+
+  .section-intro--services .section-display {
+    font-size: 11.9vw;
+  }
+
+  .service-sticky-stack {
+    top: 6rem;
+  }
+
+  .sticky-service-title h3 {
+    font-size: 8.3vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro-im {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
