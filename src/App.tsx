@@ -194,16 +194,15 @@ function useBotswanaTime() {
       Number(dateParts.find((item) => item.type === type)?.value ?? 0);
 
     const tomorrowAtNoonUtc = new Date(Date.UTC(part("year"), part("month") - 1, part("day") + 1, 12));
-    const availabilityDate = new Intl.DateTimeFormat("en-GB", {
+    const availabilityDayMonth = new Intl.DateTimeFormat("en-GB", {
       timeZone: timezone,
       day: "2-digit",
       month: "short",
+    }).format(tomorrowAtNoonUtc).toUpperCase();
+    const availabilityYear = new Intl.DateTimeFormat("en-GB", {
+      timeZone: timezone,
       year: "numeric",
-    })
-      .format(tomorrowAtNoonUtc)
-      .replace(/ /g, " ")
-      .toUpperCase();
-
+    }).format(tomorrowAtNoonUtc);
     const localTime = new Intl.DateTimeFormat("en-GB", {
       timeZone: timezone,
       hour: "2-digit",
@@ -212,7 +211,7 @@ function useBotswanaTime() {
       hour12: false,
     }).format(now);
 
-    return { availabilityDate, localTime };
+    return { availabilityDayMonth, availabilityYear, localTime };
   }, [now]);
 }
 
@@ -223,7 +222,7 @@ function App() {
   const [activeService, setActiveService] = useState(0);
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
-  const { availabilityDate, localTime } = useBotswanaTime();
+  const { availabilityDayMonth, availabilityYear, localTime } = useBotswanaTime();
 
   useRevealAnimations();
 
@@ -234,9 +233,12 @@ function App() {
   useEffect(() => {
     const updateMenuVisibility = () => {
       const servicesSection = document.getElementById("services");
-      if (!servicesSection) return;
-      const revealPoint = servicesSection.offsetTop - window.innerHeight * 0.28;
-      setShowFloatingMenu(window.scrollY >= revealPoint);
+      const footer = document.querySelector<HTMLElement>(".site-footer");
+      if (!servicesSection || !footer) return;
+
+      const revealPoint = servicesSection.offsetTop - window.innerHeight * 0.18;
+      const hidePoint = footer.offsetTop - window.innerHeight * 0.55;
+      setShowFloatingMenu(window.scrollY >= revealPoint && window.scrollY < hidePoint);
     };
 
     updateMenuVisibility();
@@ -263,7 +265,7 @@ function App() {
           setActiveService(index);
         }
       },
-      { threshold: 0.12, rootMargin: "-28% 0px -52%" },
+      { threshold: 0.12, rootMargin: "-24% 0px -50%" },
     );
 
     servicePanels.forEach((panel) => observer.observe(panel));
@@ -272,7 +274,16 @@ function App() {
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", menuOpen);
-    return () => document.body.classList.remove("menu-open");
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.classList.remove("menu-open");
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -295,16 +306,17 @@ function App() {
     }
 
     setFormStatus("loading");
-    setFormMessage("Opening your email application…");
+    setFormMessage("Opening WhatsApp…");
 
-    const subject = encodeURIComponent(`Project enquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nProject details:\n${message}`);
-    window.location.href = `mailto:info@vanssoftwarelab.com?subject=${subject}&body=${body}`;
+    const whatsappMessage = encodeURIComponent(
+      `Hello Evans, my name is ${name}.\nEmail: ${email}\n\nProject details:\n${message}`,
+    );
+    window.open(`https://wa.me/26775377360?text=${whatsappMessage}`, "_blank", "noopener,noreferrer");
 
     window.setTimeout(() => {
       setFormStatus("idle");
-      setFormMessage("Your email application should now be open. You can also write directly to info@vanssoftwarelab.com.");
-    }, 900);
+      setFormMessage("WhatsApp should now be open. You can also call +267 7537 7360.");
+    }, 700);
   };
 
   return (
@@ -343,8 +355,8 @@ function App() {
         </nav>
         <div className="menu-overlay-footer">
           <div>
-            <span>Email address</span>
-            <a href="mailto:info@vanssoftwarelab.com">info@vanssoftwarelab.com</a>
+            <span>Phone</span>
+            <a href="tel:+26775377360">+267 7537 7360</a>
           </div>
           <div className="menu-socials">
             <a href="https://linkedin.com/in/evans-mudziviri-b9b45a161" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -371,7 +383,10 @@ function App() {
 
             <div className="hero-date hero-load hero-load--two">
               <span>AVAILABLE FOR WORK</span>
-              <strong>{availabilityDate}</strong>
+              <strong>
+                <span className="availability-day">{availabilityDayMonth}</span>
+                <span className="availability-year">{availabilityYear}</span>
+              </strong>
             </div>
           </div>
         </section>
@@ -470,7 +485,7 @@ function App() {
 
         <section className="statement-section" aria-label="Professional identity">
           <div className="statement-line" data-reveal>DEVELOPER</div>
-          <div className="statement-line statement-line--right" data-reveal>IT SPECIALIST</div>
+          <div className="statement-line statement-line--right" data-reveal><span>IT</span><span>SPECIALIST</span></div>
           <div className="statement-line" data-reveal>CREATOR /</div>
         </section>
 
@@ -496,12 +511,9 @@ function App() {
 
         <section className="section about-section" id="about" aria-labelledby="about-title">
           <div className="about-grid">
-            <div className="about-portrait" data-reveal>
-              <img src="/IMG_1985.jpeg" alt="Evans Mudziviri" loading="lazy" />
-            </div>
-            <div className="about-copy">
+            <div className="about-copy about-copy--solo">
               <span className="section-label" data-reveal>(About Me)</span>
-              <h2 id="about-title" data-reveal>I’m a Southern African software developer and IT specialist at VansSoftwareLab, driven by a desire to turn ambitious ideas into practical digital products.</h2>
+              <h2 id="about-title" data-reveal>I’m a Southern African software developer and IT specialist, driven by a desire to turn ambitious ideas into practical digital products.</h2>
               <div className="about-body" data-reveal>
                 <p>I work across websites, mobile applications, AI automation, business platforms and IT systems. My focus is not only making software work, but making it clear, useful and reliable for the people and organisations using it.</p>
                 <p>I believe Africa should not only consume technology. We should build it, shape it and use it to solve the problems around us. That belief guides the products and businesses I am working to create.</p>
@@ -531,7 +543,7 @@ function App() {
             </label>
             <div className="form-actions">
               <button type="submit" disabled={formStatus === "loading"}>
-                <span>{formStatus === "loading" ? "Opening email…" : "Get a quote"}</span><ArrowUpRightIcon />
+                <span>{formStatus === "loading" ? "Opening WhatsApp…" : "Get a quote"}</span><ArrowUpRightIcon />
               </button>
               <p className={formStatus === "error" ? "form-message is-error" : "form-message"} aria-live="polite">{formMessage}</p>
             </div>
@@ -553,11 +565,9 @@ function App() {
             <h3>Socials</h3>
             <a className="footer-external" href="https://linkedin.com/in/evans-mudziviri-b9b45a161" target="_blank" rel="noreferrer"><span>LinkedIn</span><ArrowUpRightIcon /></a>
             <a className="footer-external" href="https://github.com/mudzivirievans" target="_blank" rel="noreferrer"><span>GitHub</span><ArrowUpRightIcon /></a>
-            <a className="footer-external" href="mailto:info@vanssoftwarelab.com"><span>VansSoftwareLab</span><ArrowUpRightIcon /></a>
           </div>
           <div className="footer-column footer-contact">
             <h3>Contact</h3>
-            <a href="mailto:info@vanssoftwarelab.com">info@vanssoftwarelab.com</a>
             <a href="tel:+26775377360">+267 7537 7360</a>
             <a href="tel:+2675750201">+267 5750 201</a>
             <span>Pilane, Botswana</span>
