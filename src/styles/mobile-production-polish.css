@@ -1,0 +1,237 @@
+/* Final production mobile audit: preserve the visual direction while improving rhythm and readability. */
+
+@media (max-width: 760px) {
+  .floating-menu-button {
+    top: max(0.85rem, env(safe-area-inset-top, 0px));
+    right: max(0.85rem, env(safe-area-inset-right, 0px));
+    width: 4.1rem;
+    height: 4.1rem;
+  }
+
+  .menu-glyph {
+    width: 1.5rem;
+    height: 0.9rem;
+  }
+
+  .service-sticky-stack {
+    top: 5.75rem;
+  }
+
+  .sticky-service-title {
+    padding-top: 0.72rem;
+    padding-bottom: 0.72rem;
+  }
+
+  .sticky-service-title h3 {
+    font-size: clamp(1.9rem, 8.15vw, 2.55rem);
+    line-height: 0.92;
+  }
+
+  .service-detail {
+    min-height: 47dvh;
+    align-items: flex-start;
+    padding: 2.25rem 0 3rem;
+  }
+
+  .service-detail-content {
+    width: calc(100% - 2.7rem);
+    margin-left: 2.7rem;
+  }
+
+  .service-detail-content > p {
+    font-size: 0.98rem;
+    line-height: 1.48;
+  }
+
+  .service-detail-content ol {
+    margin-top: 1.25rem;
+  }
+
+  .service-detail-content li {
+    padding: 0.72rem 0;
+  }
+
+  .statement-section {
+    padding-top: 3.8rem;
+    padding-bottom: 3.8rem;
+  }
+
+  .statement-line {
+    font-size: clamp(3.15rem, 13.45vw, 4.35rem);
+    line-height: 0.9;
+  }
+
+  .skills-section {
+    padding-top: 3.55rem;
+    padding-bottom: 3.55rem;
+  }
+
+  .skills-section--refined .skills-heading {
+    margin-bottom: 1.7rem;
+  }
+
+  .skills-section--refined .skill-band {
+    padding-top: 0.82rem;
+    padding-bottom: 1rem;
+  }
+
+  .skills-section--refined .skill-label {
+    margin-bottom: 0.68rem;
+    font-size: 0.7rem;
+  }
+
+  .skills-section--refined .skill-track span {
+    font-size: clamp(2.8rem, 11.4vw, 4.15rem);
+    line-height: 0.94;
+  }
+
+  .skill-track {
+    animation-duration: 62s;
+  }
+
+  .about-section {
+    padding-top: 3.45rem;
+    padding-bottom: 3.45rem;
+  }
+
+  .about-copy h2 {
+    max-width: 12.8ch;
+    margin-top: 1.35rem;
+    font-size: clamp(2.65rem, 9.8vw, 3.65rem);
+    line-height: 0.96;
+  }
+
+  .about-body {
+    gap: 1.15rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+  }
+
+  .about-body p {
+    font-size: 0.99rem;
+    line-height: 1.5;
+  }
+
+  .education-section {
+    padding-top: 3.45rem;
+    padding-bottom: 3.45rem;
+  }
+
+  .education-intro {
+    gap: 1.15rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .education-intro h2 {
+    max-width: 12ch;
+    font-size: clamp(2.65rem, 9.9vw, 3.7rem);
+    line-height: 0.96;
+  }
+
+  .education-intro p {
+    margin-top: 1rem;
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .education-row {
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+  }
+
+  .education-content h3 {
+    font-size: clamp(1.55rem, 6.65vw, 2.15rem);
+    line-height: 1.02;
+  }
+
+  .education-content p {
+    margin-top: 0.55rem;
+  }
+
+  .education-year {
+    margin-top: 0.58rem;
+  }
+
+  .contact-section {
+    padding-top: 3.7rem;
+    padding-bottom: 2.45rem;
+  }
+
+  .contact-heading h2 {
+    font-size: clamp(3.8rem, 15.6vw, 5.5rem);
+    line-height: 0.86;
+  }
+
+  .contact-heading p {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .contact-form {
+    margin-top: 2.25rem;
+  }
+
+  .contact-form label {
+    min-height: 5.35rem;
+    padding-top: 1.05rem;
+    padding-bottom: 1.05rem;
+  }
+
+  .contact-form label span {
+    margin-bottom: 0.55rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 1.18rem;
+  }
+
+  .contact-form textarea {
+    min-height: 5.2rem;
+  }
+
+  .message-field {
+    min-height: 7.7rem !important;
+  }
+
+  .form-actions {
+    padding-top: 1.5rem;
+  }
+
+  .form-actions button {
+    min-height: 4.2rem;
+  }
+
+  .site-footer--refined .footer-top {
+    row-gap: 1.8rem;
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .site-footer--refined .footer-column {
+    gap: 0.44rem;
+  }
+
+  .site-footer--refined .footer-column a,
+  .site-footer--refined .footer-column span {
+    font-size: 0.96rem;
+  }
+
+  .site-footer--refined .local-time strong {
+    font-size: clamp(2.55rem, 10.7vw, 3.35rem);
+  }
+
+  .footer-bottom {
+    padding-top: 1.2rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .skills-section--refined .skill-track span {
+    font-size: 10.9vw;
+  }
+
+  .statement-line {
+    font-size: 12.9vw;
+  }
+}
