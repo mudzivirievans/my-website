@@ -44,9 +44,8 @@ const ensureHandwrittenIntro = (heroName: HTMLElement) => {
   intro.className = "hero-handwritten-intro";
   intro.setAttribute("aria-label", "Hey, I'm");
   intro.innerHTML = `
-    <svg viewBox="0 0 230 76" aria-hidden="true" focusable="false">
-      <text class="hero-script-text" x="5" y="53">Hey, I’m</text>
-      <path class="hero-script-flourish" d="M126 62C151 60 178 58 221 51" />
+    <svg viewBox="0 0 176 58" aria-hidden="true" focusable="false">
+      <text class="hero-script-text" x="2" y="42">Hey, I’m</text>
     </svg>
   `;
 
