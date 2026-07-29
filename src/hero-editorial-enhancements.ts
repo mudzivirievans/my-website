@@ -1,13 +1,16 @@
 let headerSwapReady = false;
 let headerSwapFrame: number | null = null;
 
+const arrowMarkup = '<span class="footer-social-arrow" aria-hidden="true">↗</span>';
+
 const syncHeaderSwap = () => {
-  const servicesSection = document.getElementById("services");
+  const hero = document.querySelector<HTMLElement>(".hero");
 
-  if (!servicesSection) return;
+  if (!hero) return;
 
-  const swapLine = Math.min(128, window.innerHeight * 0.14);
-  const isPastHero = servicesSection.getBoundingClientRect().top <= swapLine;
+  const swapOffset = Math.min(120, window.innerHeight * 0.12);
+  const swapPoint = hero.offsetTop + hero.offsetHeight - swapOffset;
+  const isPastHero = window.scrollY >= swapPoint;
   document.body.classList.toggle("is-past-hero", isPastHero);
 };
 
@@ -42,17 +45,18 @@ const ensureHandwrittenIntro = (heroName: HTMLElement) => {
 
   const intro = document.createElement("div");
   intro.className = "hero-handwritten-intro";
-  intro.setAttribute("aria-label", "Hey, I'm");
+  intro.setAttribute("aria-label", "Hello, I'm");
   intro.innerHTML = `
-    <svg viewBox="0 0 176 58" aria-hidden="true" focusable="false">
-      <text class="hero-script-text" x="2" y="42">Hey, I’m</text>
+    <svg viewBox="0 0 170 62" aria-hidden="true" focusable="false">
+      <text class="hero-script-text" x="3" y="47">hello,</text>
     </svg>
+    <span class="hero-intro-im">I’m</span>
   `;
 
   heroName.before(intro);
 };
 
-const enhanceHero = () => {
+const enhanceHeroCopy = () => {
   const heroName = document.querySelector<HTMLElement>(".hero-name");
   const nameParts = document.querySelectorAll<HTMLElement>(".hero-name > span");
 
@@ -82,16 +86,90 @@ const enhanceHero = () => {
     paragraph.dataset.editorialCopy = "true";
     paragraph.classList.add("hero-editorial-copy");
   }
+};
 
+const enhanceWebsitePortfolio = () => {
+  const firstProject = document.querySelector<HTMLElement>(".project-row");
+
+  if (!firstProject || firstProject.dataset.portfolioEnhanced === "true") return;
+
+  const description = firstProject.querySelector<HTMLElement>(".project-description");
+  const link = firstProject.querySelector<HTMLAnchorElement>(".project-link");
+
+  if (description) {
+    description.textContent =
+      "Selected client websites for Rachel’s Concrete Kitchens, Tshiamo Cloud, Onicorp Engineers and Sandgrouse Resort.";
+  }
+
+  if (link) {
+    link.href = "https://rachel-s-concrete-kitchens.vercel.app";
+    link.setAttribute("aria-label", "Visit Rachel’s Concrete Kitchens");
+  }
+
+  firstProject.dataset.portfolioEnhanced = "true";
+};
+
+const enhanceStatement = () => {
+  const statement = document.querySelector<HTMLElement>(".statement-section");
+
+  if (!statement || statement.dataset.statementEnhanced === "true") return;
+
+  statement.innerHTML = `
+    <div class="statement-line">SOFTWARE</div>
+    <div class="statement-line">DEVELOPER /</div>
+    <div class="statement-line statement-line--right"><span>IT SPECIALIST</span></div>
+  `;
+  statement.dataset.statementEnhanced = "true";
+};
+
+const enhanceFooterSocials = () => {
+  const footerColumns = document.querySelectorAll<HTMLElement>(".site-footer .footer-column");
+  const socialColumn = footerColumns[1];
+
+  if (!socialColumn || socialColumn.dataset.socialsEnhanced === "true") return;
+
+  socialColumn.classList.add("footer-socials-column");
+
+  const socials = [
+    ["Facebook", "https://www.facebook.com/share/19H7qz3KSK/?mibextid=wwXIfr"],
+    ["Instagram", "https://www.instagram.com/evansmudziviri?igsh=b3Eyc3NibjNzNDky"],
+    ["X / Twitter", "https://x.com/e_mudz"],
+    ["Reddit", "https://www.reddit.com/u/Then-Research/s/kYpyBwunti"],
+    ["Discord · vans_37", "https://discord.com/app"],
+  ] as const;
+
+  socials.forEach(([label, href]) => {
+    const anchor = document.createElement("a");
+    anchor.className = "footer-external";
+    anchor.href = href;
+    anchor.target = "_blank";
+    anchor.rel = "noreferrer";
+    anchor.innerHTML = `<span>${label}</span>${arrowMarkup}`;
+
+    if (label.startsWith("Discord")) {
+      anchor.title = "Open Discord — username: vans_37";
+    }
+
+    socialColumn.append(anchor);
+  });
+
+  socialColumn.dataset.socialsEnhanced = "true";
+};
+
+const enhancePage = () => {
+  enhanceHeroCopy();
+  enhanceWebsitePortfolio();
+  enhanceStatement();
+  enhanceFooterSocials();
   setupHeaderSwap();
 };
 
 const root = document.getElementById("root");
 
 if (root) {
-  const observer = new MutationObserver(enhanceHero);
+  const observer = new MutationObserver(enhancePage);
   observer.observe(root, { childList: true, subtree: true });
 
-  queueMicrotask(enhanceHero);
-  window.addEventListener("load", enhanceHero, { once: true });
+  queueMicrotask(enhancePage);
+  window.addEventListener("load", enhancePage, { once: true });
 }
