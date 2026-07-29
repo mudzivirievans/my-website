@@ -1,16 +1,19 @@
 let headerSwapReady = false;
 let headerSwapFrame: number | null = null;
 
-const arrowMarkup = '<span class="footer-social-arrow" aria-hidden="true">↗</span>';
+const arrowMarkup = `
+  <svg class="footer-social-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M6 18 18 6M9 6h9v9" />
+  </svg>
+`;
 
 const syncHeaderSwap = () => {
-  const hero = document.querySelector<HTMLElement>(".hero");
+  const servicesSection = document.getElementById("services");
 
-  if (!hero) return;
+  if (!servicesSection) return;
 
-  const swapOffset = Math.min(120, window.innerHeight * 0.12);
-  const swapPoint = hero.offsetTop + hero.offsetHeight - swapOffset;
-  const isPastHero = window.scrollY >= swapPoint;
+  const swapLine = Math.min(118, window.innerHeight * 0.13);
+  const isPastHero = servicesSection.getBoundingClientRect().top <= swapLine;
   document.body.classList.toggle("is-past-hero", isPastHero);
 };
 
@@ -47,9 +50,7 @@ const ensureHandwrittenIntro = (heroName: HTMLElement) => {
   intro.className = "hero-handwritten-intro";
   intro.setAttribute("aria-label", "Hello, I'm");
   intro.innerHTML = `
-    <svg viewBox="0 0 170 62" aria-hidden="true" focusable="false">
-      <text class="hero-script-text" x="3" y="47">hello,</text>
-    </svg>
+    <span class="hero-intro-script">hello,</span>
     <span class="hero-intro-im">I’m</span>
   `;
 
