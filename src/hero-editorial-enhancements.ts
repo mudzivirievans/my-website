@@ -49,10 +49,7 @@ const ensureHandwrittenIntro = (heroName: HTMLElement) => {
   const intro = document.createElement("div");
   intro.className = "hero-handwritten-intro";
   intro.setAttribute("aria-label", "Hello, I'm");
-  intro.innerHTML = `
-    <span class="hero-intro-script">hello,</span>
-    <span class="hero-intro-im">I’m</span>
-  `;
+  intro.innerHTML = '<span class="hero-intro-script">Hello, I’m</span>';
 
   heroName.before(intro);
 };
