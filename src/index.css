@@ -13,3 +13,25 @@
 @import "./styles/mobile-production-polish.css";
 @import "./styles/desktop-production-polish.css";
 @import "./styles/desktop-hero-final.css";
+
+/*
+ * iOS/WebKit scroll stability fix.
+ *
+ * The reveal observer can rapidly toggle elements near the viewport edge while
+ * Safari/Chrome collapses and expands its browser chrome. On small screens,
+ * render reveal targets in their final state so scrolling stays visually stable
+ * instead of repeatedly moving/fading the same element.
+ */
+@media (max-width: 760px) {
+  [data-reveal],
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .form-actions button:hover {
+    transform: none;
+  }
+}
